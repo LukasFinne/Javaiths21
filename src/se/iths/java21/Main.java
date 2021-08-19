@@ -13,5 +13,7 @@ public class Main {
         System.out.println("hej");
         System.out.println(1+1);
 
+        System.out.println("Pog");
+
     }
 }

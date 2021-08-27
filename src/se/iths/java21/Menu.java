@@ -1,8 +1,7 @@
 package se.iths.java21;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
+
+import java.util.*;
 
 public class Menu {
     static Scanner sc = new Scanner(System.in);
@@ -16,31 +15,31 @@ public class Menu {
     public static void menu(){
         System.out.println("Please select what you want to do!");
         System.out.println("1. Tick tock");
-        System.out.println("2. stensaxpåse");
-        System.out.println("3. End");
+        System.out.println("2. Min Max");
+        System.out.println("3. Sten, Sax, Påse");
+        System.out.println("e. End");
         System.out.println("4. Return to the menu");
     }
 
     public static void menuSelection(){
-        boolean menuDisplay = true;
+        boolean menuFunction = true;
 
-        while(menuDisplay){
-            String select = sc.next();
-            int selectNumber = Integer.parseInt(select);
+        while(menuFunction){
+            String select = sc.next().toLowerCase();
 
-            switch (selectNumber){
-                case 1:
+            switch (select){
+                case "1":
                     System.out.println("Du valde UppochNer snälla skriv ett viss antal strängar, Tack!");
                     uppOchNer();
                     break;
-                case 2:
-                    System.out.println("Bye");
+                case "2":
+                    MaxAndMin();
                     break;
-                case 3:
+                case "e"://Fixa detta sen
                     System.out.println("Program ended");
-                    menuDisplay = false;
+                    menuFunction = false;
                     break;
-                case 4:
+                case "4":
                     System.out.println("Return to the menu");
                     menu();
                     break;
@@ -77,8 +76,22 @@ public class Menu {
             menu();
 
         }
+    }
 
+    public static void MaxAndMin(){
+        int[] numberArray = new int[5];
 
+        System.out.println("Skriv fem heltal! ");
+        for (int i = 0; i < numberArray.length; i++) {
+            numberArray[i] = sc.nextInt();
+        }
+
+        Arrays.sort(numberArray);
+        System.out.printf("Min value: %d \n", numberArray[0]);
+        System.out.printf("Max value: %d \n \n", numberArray[4]);
+        System.out.println("Finished!");
+        System.out.println();
+        menu();
     }
 
 }

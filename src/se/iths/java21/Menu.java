@@ -33,7 +33,10 @@ public class Menu {
                     uppOchNer();
                     break;
                 case "2":
-                    MaxAndMin();
+                    maxAndMin();
+                    break;
+                case "3":
+                    stenSaxPåse();
                     break;
                 case "e"://Fixa detta sen
                     System.out.println("Program ended");
@@ -78,7 +81,7 @@ public class Menu {
         }
     }
 
-    public static void MaxAndMin(){
+    public static void maxAndMin(){
         int[] numberArray = new int[5];
 
         System.out.println("Skriv fem heltal! ");
@@ -92,6 +95,25 @@ public class Menu {
         System.out.println("Finished!");
         System.out.println();
         menu();
+    }
+
+    public static void stenSaxPåse(){
+        System.out.println("Skriv sten, sax, eller påse");
+        String userChoice = sc.next().toLowerCase();
+
+        Random rand = new Random();
+        String[] computerChoice = {"Sten", "Sax", "Påse"};
+        int randomNumber = rand.nextInt(2);
+        System.out.printf("Datorn valde: %s \n", computerChoice[randomNumber]);
+        if(userChoice.equals(computerChoice[randomNumber]))
+            System.out.println("Oavjort!");
+
+        menu();
+
+
+
+
+
     }
 
 }

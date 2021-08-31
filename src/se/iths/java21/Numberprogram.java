@@ -6,25 +6,23 @@ import java.util.Scanner;
 public class Numberprogram {
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Guess the number!, betwenn 1-100");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Guess the number!, between 1-100");
 
-        int hemligt = (int) (Math.random()*101);
+        int secretNumber = (int) (Math.random()*101);
         int guess = 0;
-        ArrayList<Integer> list = new ArrayList<Integer>();
+        ArrayList<Integer> list = new ArrayList<>();
 
-        while(guess != hemligt){
-            guess = sc.nextInt();
-            if(guess > hemligt){
+        while(guess != secretNumber){
+            guess = scanner.nextInt();
+            if(guess > secretNumber){
                 System.out.println("A little too high!");
                 list.add(guess);
-
-            }else if(guess == hemligt){
+            }else if(guess == secretNumber){
                 System.out.println("Correct!");
-
+                System.out.println();
                 System.out.println("Here are you guesses!");
                 for(int x : list){
-
                     System.out.printf( list.indexOf(x) + 1 + ". Guess was %d \n",x);
                 }
             }
@@ -32,8 +30,6 @@ public class Numberprogram {
                 System.out.println("A little too low");
                 list.add(guess);
             }
-
-
         }
 
     }

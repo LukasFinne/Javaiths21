@@ -1,4 +1,4 @@
-package se.iths.java21;
+package se.iths.java21.Lab;
 
 
 import java.util.*;
@@ -22,6 +22,8 @@ public class Menu {
     }
 
     public static void menuSelection(){
+        Rockpaperscissors rockPaperScissors = new Rockpaperscissors();
+
         boolean menuFunction = true;
 
         while(menuFunction){
@@ -36,7 +38,8 @@ public class Menu {
                     maxAndMin();
                     break;
                 case "3":
-                    stenSaxPåse();
+                    rockPaperScissors.stenSaxPåse();
+                    menu();
                     break;
                 case "e"://Fixa detta sen
                     System.out.println("Program ended");
@@ -92,28 +95,10 @@ public class Menu {
         Arrays.sort(numberArray);
         System.out.printf("Min value: %d \n", numberArray[0]);
         System.out.printf("Max value: %d \n \n", numberArray[4]);
-        System.out.println("Finished!");
-        System.out.println();
+        System.out.println("Finished! \n");
+
         menu();
     }
 
-    public static void stenSaxPåse(){
-        System.out.println("Skriv sten, sax, eller påse");
-        String userChoice = sc.next().toLowerCase();
-
-        Random rand = new Random();
-        String[] computerChoice = {"Sten", "Sax", "Påse"};
-        int randomNumber = rand.nextInt(2);
-        System.out.printf("Datorn valde: %s \n", computerChoice[randomNumber]);
-        if(userChoice.equals(computerChoice[randomNumber]))
-            System.out.println("Oavjort!");
-
-        menu();
-
-
-
-
-
-    }
 
 }

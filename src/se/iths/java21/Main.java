@@ -17,6 +17,9 @@ public class Main {
         }
 
 
+
+
+
         int a = 3;
         if( a > 1 )
             System.out.println("a > 1 (första)");
@@ -45,5 +48,12 @@ public class Main {
 
 
 
+    }
+
+    public static long fact(long n){
+        if(n == 0)
+            return 1;
+
+        return n*fact(n -1);
     }
 }

@@ -1,9 +1,11 @@
 package se.iths.java21.ArrayDemo;
 
+import java.util.Arrays;
+
 public class DynamicArray {
 
-    int[] values = new int[10];
-    int counter = 0;
+    private int[] values = new int[10];
+    private int counter = 0;
 
     public static void main(String[] args) {
 
@@ -14,10 +16,11 @@ public class DynamicArray {
         for (int value : dynamicArray.values) {
             System.out.println(value);
         }
-
     }
 
     void add(int value){
+        if(counter >= values.length )
+            grow();
         values[counter] = value;
         counter = counter + 1;
     }
@@ -30,6 +33,21 @@ public class DynamicArray {
 
     int length(){
         return counter;
+    }
+    private void grow(){
+        int[] newArray = new int[values.length*2];
+        System.arraycopy(values, 0, newArray, 0, values.length);
+        //Sätt values att peka på nya arrayen.
+        values = newArray;
+    }
+
+
+    public int get(int i) {
+        return values[i];
+    }
+
+    public int[] get() {
+        return values;
     }
 
 }

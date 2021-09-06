@@ -25,38 +25,36 @@ public class Menu {
     public static void menuSelection(){
         Rockpaperscissors rockPaperScissors = new Rockpaperscissors();
         Maxandmin maxAndMin = new Maxandmin();
-        Inorder Inorder = new Inorder();
+        Inorder inOrder = new Inorder();
 
         boolean menuFunction = true;
 
         while(menuFunction){
             String select = sc.next().toLowerCase();
 
-            switch (select){
-                case "1":
+            switch (select) {
+                case "1" -> {
                     System.out.println("Du valde UppochNer snälla skriv ett viss antal strängar, Tack!");
                     uppOchNer();
-                    break;
-                case "2":
+                }
+                case "2" -> {
                     maxAndMin.maxMin();
                     menu();
-                    break;
-                case "3":
+                }
+                case "3" -> {
                     rockPaperScissors.stenSaxPåse();
                     menu();
-                    break;
-                case "4":
+                }
+                case "4" -> {
                     System.out.println("In order");
-                    Inorder.inOrder();
+                    inOrder.inOrder();
                     menu();
-                    break;
-                case "e"://Fixa detta sen
+                }
+                case "e" -> {
                     System.out.println("Program ended");
                     menuFunction = false;
-                    break;
-                default:
-                    System.out.println("Error");
-                    break;
+                }
+                default -> System.out.println("Error");
             }
 
         }

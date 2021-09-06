@@ -17,12 +17,15 @@ public class Menu {
         System.out.println("1. Tick tock");
         System.out.println("2. Min Max");
         System.out.println("3. Sten, Sax, Påse");
+        System.out.println("4. In order");
         System.out.println("e. End");
-        System.out.println("4. Return to the menu");
+
     }
 
     public static void menuSelection(){
         Rockpaperscissors rockPaperScissors = new Rockpaperscissors();
+        Maxandmin maxAndMin = new Maxandmin();
+        Inorder Inorder = new Inorder();
 
         boolean menuFunction = true;
 
@@ -35,19 +38,21 @@ public class Menu {
                     uppOchNer();
                     break;
                 case "2":
-                    maxAndMin();
+                    maxAndMin.maxMin();
+                    menu();
                     break;
                 case "3":
                     rockPaperScissors.stenSaxPåse();
                     menu();
                     break;
+                case "4":
+                    System.out.println("In order");
+                    Inorder.inOrder();
+                    menu();
+                    break;
                 case "e"://Fixa detta sen
                     System.out.println("Program ended");
                     menuFunction = false;
-                    break;
-                case "4":
-                    System.out.println("Return to the menu");
-                    menu();
                     break;
                 default:
                     System.out.println("Error");
@@ -84,21 +89,6 @@ public class Menu {
         }
     }
 
-    public static void maxAndMin(){
-        int[] numberArray = new int[5];
-
-        System.out.println("Skriv fem heltal! ");
-        for (int i = 0; i < numberArray.length; i++) {
-            numberArray[i] = sc.nextInt();
-        }
-
-        Arrays.sort(numberArray);
-        System.out.printf("Min value: %d \n", numberArray[0]);
-        System.out.printf("Max value: %d \n \n", numberArray[4]);
-        System.out.println("Finished! \n");
-
-        menu();
-    }
 
 
 }

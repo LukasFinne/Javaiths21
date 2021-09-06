@@ -12,7 +12,8 @@ public class Rockpaperscissors {
         result(userChoice,computerChoice());
     }
 
-    public static void result(String userChoice, String computerChoice){
+    public static void result(String userChoice, String computerChoice){        //Lägg till en switch
+
         if(userChoice.equals(computerChoice))
             System.out.println("Oavjort!");
         else if(userChoice.equals("sten"))
@@ -29,7 +30,7 @@ public class Rockpaperscissors {
         System.out.printf("Datorn valde: %s \n", computerChoice[randomNumber]);
         return computerChoice[randomNumber];
     }
-    public static void rock(String userChoice, String computerChoice){
+    public static void rock(String userChoice, String computerChoice){//kanske inte behöver userChoice
         if (userChoice.equals("sten") && computerChoice.equals("sax"))
             System.out.println("Du vann!");
         else if (userChoice.equals("sten") && computerChoice.equals("påse"))
@@ -51,4 +52,4 @@ public class Rockpaperscissors {
     }
 
 }
-}
+

@@ -2,19 +2,17 @@ package se.iths.java21.Lab;
 
 import java.util.Arrays;
 
-import static se.iths.java21.Lab.Maxandmin.arraySort;
-import static se.iths.java21.Lab.Maxandmin.unsortedArray;
-
-public class Inorder{
+public class Inorder extends Maxandmin{
 
     public static void inOrder(){
+
         int sum = 0;
         int[] numberArray = new int[5];
 
         arraySort(numberArray);
 
-        for (int i = 0; i < numberArray.length; i++) {
-            sum += numberArray[i];
+        for (int j : numberArray) {
+            sum += j;
         }
 
         System.out.printf("Min value: %d \n",numberArray[0]);
@@ -27,9 +25,5 @@ public class Inorder{
             System.out.println("I ordning: false");
         System.out.printf("Summa: %d \n", sum);
         System.out.println("Finished! \n");
-
-
-
-
     }
 }

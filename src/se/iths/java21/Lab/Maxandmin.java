@@ -4,8 +4,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Maxandmin {
-    static int[] unsortedArray;
-    public static int[] arraySort(int[] array){
+
+     int[] unsortedArray;
+    public int[] arraySort(int[] array){
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Skriv fem heltal! ");
@@ -23,7 +24,7 @@ public class Maxandmin {
 
     }
 
-    public static void maxMin(){
+    public void maxMin(){
 
         int[] numberArray = new int[5];
 

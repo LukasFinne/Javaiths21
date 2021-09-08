@@ -21,11 +21,11 @@ public class Menu {
         System.out.println("e. End");
 
     }
-
     public static void menuSelection(){
         Rockpaperscissors rockPaperScissors = new Rockpaperscissors();
-        Maxandmin maxAndMin = new Maxandmin();
+        Maxandmin Maxandmin = new Maxandmin();
         Inorder inOrder = new Inorder();
+        Uppochner Uppochner = new Uppochner();
 
         boolean menuFunction = true;
 
@@ -35,14 +35,15 @@ public class Menu {
             switch (select) {
                 case "1" -> {
                     System.out.println("Du valde UppochNer snälla skriv ett viss antal strängar, Tack!");
-                    uppOchNer();
+                    Uppochner.uppOchNer();
+                    menu();
                 }
                 case "2" -> {
-                    maxAndMin.maxMin();
+                    Maxandmin.maxMin();
                     menu();
                 }
                 case "3" -> {
-                    rockPaperScissors.stenSaxPåse();
+                    rockPaperScissors.rockPaperScissors();
                     menu();
                 }
                 case "4" -> {
@@ -61,31 +62,6 @@ public class Menu {
 
     }
 
-    public static void uppOchNer(){
-        System.out.println();
-        ArrayList<String> arr = new ArrayList<>();
-        String uppOchNerOrd;
-        do{
-             uppOchNerOrd = sc.next();
-            arr.add(uppOchNerOrd);
-        }while(!arr.contains("END"));
-
-        if(uppOchNerOrd.contains("END")){
-            for (String x : arr) {
-                System.out.println(x);
-            }
-            Collections.reverse(arr);
-            arr.remove("END");
-            for (String x : arr) {
-                System.out.println(x);
-            }
-            System.out.println();
-            System.out.println("Finished! Going back to the menu!");
-            System.out.println();
-            menu();
-
-        }
-    }
 
 
 

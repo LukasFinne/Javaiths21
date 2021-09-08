@@ -2,14 +2,16 @@ package se.iths.java21.Lab;
 
 import java.util.Arrays;
 
-public class Inorder extends Maxandmin{
+public class Inorder {
 
-    public static void inOrder(){
+    public void inOrder(){
+
+        Maxandmin maxAndMin = new Maxandmin();
 
         int sum = 0;
         int[] numberArray = new int[5];
 
-        arraySort(numberArray);
+        maxAndMin.arraySort(numberArray);
 
         for (int j : numberArray) {
             sum += j;
@@ -19,7 +21,7 @@ public class Inorder extends Maxandmin{
         System.out.printf("2Min value: %d \n",numberArray[1]);
         System.out.printf("Max value: %d \n",numberArray[4]);
         System.out.printf("2Max value: %d \n",numberArray[3]);
-        if(Arrays.equals(numberArray, unsortedArray))
+        if(Arrays.equals(numberArray, maxAndMin.unsortedArray))
             System.out.println("I ordning: true");
         else
             System.out.println("I ordning: false");

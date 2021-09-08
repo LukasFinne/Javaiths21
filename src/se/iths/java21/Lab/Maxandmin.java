@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Maxandmin {
 
      int[] unsortedArray;
-    public int[] arraySort(int[] array){
+    public void arraySort(int[] array){
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Skriv fem heltal! ");
@@ -19,9 +19,6 @@ public class Maxandmin {
         System.arraycopy(array, 0, unsortedArray, 0, array.length);
 
         Arrays.sort(array);
-
-        return array;
-
     }
 
     public void maxMin(){

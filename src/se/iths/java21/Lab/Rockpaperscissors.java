@@ -40,7 +40,6 @@ public class Rockpaperscissors {
             default -> System.out.println("Error");
         }
     }
-
     public static void paper(String computerChoice){
         switch (computerChoice) {
             case "sten" -> System.out.println("Du vann");

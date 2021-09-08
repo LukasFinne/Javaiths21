@@ -9,7 +9,6 @@ public class Maxandmin {
     public void arraySort(int[] array){
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Skriv fem heltal! ");
 
         for (int i = 0; i < array.length; i++) {
             array[i] = sc.nextInt();
@@ -29,7 +28,7 @@ public class Maxandmin {
 
         System.out.printf("Min value: %d \n",numberArray[0]);
         System.out.printf("Max value: %d \n \n",numberArray[4]);
-        System.out.println("Finished! \n");
+        System.out.println("Färdig!");
     }
 
 }

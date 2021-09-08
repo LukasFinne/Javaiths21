@@ -5,9 +5,8 @@ import java.util.Scanner;
 
 public class Rockpaperscissors {
 
-    public void rockPaperScissors(){
+    public static void rockPaperScissors(){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Skriv sten, sax, eller påse");
         String userChoice = sc.next().toLowerCase();
         result(userChoice,computerChoice());
     }
@@ -22,7 +21,10 @@ public class Rockpaperscissors {
                 case "sten" -> rock(computerChoice);
                 case "sax" -> scissors(computerChoice);
                 case "påse" -> paper(computerChoice);
-                default -> System.out.println("Invalid input");
+                default -> {
+                    System.out.println("Felaktig inmatning, försök igen.");
+                    rockPaperScissors();
+                }
              }
         }
     }

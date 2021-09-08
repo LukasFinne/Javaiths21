@@ -26,6 +26,6 @@ public class Inorder {
         else
             System.out.println("I ordning: false");
         System.out.printf("Summa: %d \n", sum);
-        System.out.println("Finished! \n");
+        System.out.println("Färdig!");
     }
 }

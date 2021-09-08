@@ -24,7 +24,7 @@ public class Uppochner {
             for (String x : arrayList) {
                 System.out.println(x);
             }
-            System.out.println("Finished! Going back to the menu!");
+            System.out.println("Färdig!");
         }
     }
 }

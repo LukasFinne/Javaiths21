@@ -13,12 +13,12 @@ public class Menu {
 
     }
     public static void menu(){
-        System.out.println("Please select what you want to do!");
-        System.out.println("1. Tick tock");
-        System.out.println("2. Min Max");
+        System.out.println("Välj vad du vill göra!");
+        System.out.println("1. Upp och ner");
+        System.out.println("2. Min och Max");
         System.out.println("3. Sten, Sax, Påse");
-        System.out.println("4. In order");
-        System.out.println("e. End");
+        System.out.println("4. Ordning och reda");
+        System.out.println("e. Avsluta");
 
     }
     public static void menuSelection(){
@@ -39,23 +39,28 @@ public class Menu {
                     menu();
                 }
                 case "2" -> {
+                    System.out.println("Skriv fem heltal! ");
                     Maxandmin.maxMin();
                     menu();
                 }
                 case "3" -> {
+                    System.out.println("Skriv sten, sax, eller påse");
                     rockPaperScissors.rockPaperScissors();
                     menu();
                 }
                 case "4" -> {
-                    System.out.println("In order");
+                    System.out.println("Ordning och reda");
                     inOrder.inOrder();
                     menu();
                 }
                 case "e" -> {
-                    System.out.println("Program ended");
+                    System.out.println("Programmet avslutades");
                     menuFunction = false;
                 }
-                default -> System.out.println("Error");
+                default -> {
+                    System.out.println("Felaktig inmatning, försök igen.");
+                    menu();
+                }
             }
 
         }

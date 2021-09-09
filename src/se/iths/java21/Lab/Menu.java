@@ -45,7 +45,7 @@ public class Menu {
                     menu();
                 }
                 case "3" -> {
-                    System.out.println("Skriv sten, sax, eller påse");
+
                     rockPaperScissors.rockPaperScissors();
                     menu();
                 }

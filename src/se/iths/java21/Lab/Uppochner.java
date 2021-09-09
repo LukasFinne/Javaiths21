@@ -9,17 +9,16 @@ public class Uppochner {//Change name
     public void uppOchNer() {
         Scanner sc = new Scanner(System.in);
         ArrayList<String> arrayList = new ArrayList<>();
-        String uppOchNerOrd;
+        String upAndDownWords;
         do { //add another method?
-            uppOchNerOrd = sc.next();
-            arrayList.add(uppOchNerOrd);
+            upAndDownWords = sc.next();
+            arrayList.add(upAndDownWords);
         } while (!arrayList.contains("END"));
 
-        reverse(arrayList, uppOchNerOrd);
+        reverseMethod(arrayList);
     }
 
-    private void reverse(ArrayList<String> arrayList, String uppOchNerOrd) {//maybe can remove the if statment
-        if (uppOchNerOrd.contains("END")) {
+    private void reverseMethod(ArrayList<String> arrayList){
             for (String x : arrayList) {
                 System.out.println(x);
             }
@@ -29,6 +28,6 @@ public class Uppochner {//Change name
                 System.out.println(x);
             }
             System.out.println("Färdig!");
-        }
+
     }
 }

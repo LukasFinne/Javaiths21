@@ -5,8 +5,9 @@ import java.util.Scanner;
 
 public class Maxandmin {
 
-     int[] unsortedArray;
-    public void arraySort(int[] array){
+    int[] unsortedArray;
+
+    public void arraySort(int[] array) {
         Scanner sc = new Scanner(System.in);
 
         for (int i = 0; i < array.length; i++) {
@@ -19,14 +20,14 @@ public class Maxandmin {
         Arrays.sort(array);
     }
 
-    public void maxMin(){
+    public void maxMin() {
 
         int[] numberArray = new int[5];
 
         arraySort(numberArray);
 
-        System.out.printf("Min value: %d \n",numberArray[0]);
-        System.out.printf("Max value: %d \n \n",numberArray[4]);
+        System.out.printf("Min value: %d \n", numberArray[0]);
+        System.out.printf("Max value: %d \n \n", numberArray[4]);
         System.out.println("Färdig!");
     }
 

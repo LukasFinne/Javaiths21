@@ -4,8 +4,7 @@ import java.util.Arrays;
 
 public class Inorder {
 
-    public void inOrder(){
-
+    public void inOrder() {
         Maxandmin maxAndMin = new Maxandmin();
 
         int sum = 0;
@@ -13,19 +12,24 @@ public class Inorder {
 
         maxAndMin.arraySort(numberArray);
 
-        for (int j : numberArray) {
+        for (int j : numberArray)
             sum += j;
-        }
 
-        System.out.printf("Min value: %d \n",numberArray[0]);
-        System.out.printf("2Min value: %d \n",numberArray[1]);
-        System.out.printf("Max value: %d \n",numberArray[4]);
-        System.out.printf("2Max value: %d \n",numberArray[3]);
-        if(Arrays.equals(numberArray, maxAndMin.unsortedArray))
+        printArrayResult(Arrays.equals(numberArray, maxAndMin.unsortedArray), sum, numberArray);
+    }
+
+    private void printArrayResult(boolean equals, int sum, int[] numberArray) {
+        System.out.printf("Min value: %d \n", numberArray[0]);
+        System.out.printf("2Min value: %d \n", numberArray[1]);
+        System.out.printf("Max value: %d \n", numberArray[4]);
+        System.out.printf("2Max value: %d \n", numberArray[3]);
+        if (equals)
             System.out.println("I ordning: true");
         else
             System.out.println("I ordning: false");
         System.out.printf("Summa: %d \n", sum);
         System.out.println("Färdig!");
     }
+
+
 }

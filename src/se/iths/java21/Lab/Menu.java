@@ -9,7 +9,8 @@ public class Menu {
         menu();
         menuSelection();
     }
-    public static void menu(){
+
+    public static void menu() {
         System.out.println("Välj vad du vill göra!");
         System.out.println("1. Upp och ner");
         System.out.println("2. Min och Max");
@@ -18,23 +19,24 @@ public class Menu {
         System.out.println("e. Avsluta");
 
     }
-    public static void menuSelection(){
+
+    public static void menuSelection() {
         Rockpaperscissors rockPaperScissors = new Rockpaperscissors();
         Maxandmin Maxandmin = new Maxandmin();
         Inorder inOrder = new Inorder();
-        Uppochner Uppochner = new Uppochner();
+        Upanddown Upanddown = new Upanddown();
 
         boolean menuFunction = true;
 
         Scanner sc = new Scanner(System.in);
 
-        while(menuFunction){
+        while (menuFunction) {
             String select = sc.next().toLowerCase();
 
             switch (select) {
                 case "1" -> {
                     System.out.println("Du valde UppochNer snälla skriv ett viss antal strängar, Tack!");
-                    Uppochner.uppOchNer();
+                    Upanddown.upAndDown();
                     menu();
                 }
                 case "2" -> {

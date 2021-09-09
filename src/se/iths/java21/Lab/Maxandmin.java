@@ -9,12 +9,11 @@ public class Maxandmin {
     public void arraySort(int[] array){
         Scanner sc = new Scanner(System.in);
 
-
         for (int i = 0; i < array.length; i++) {
             array[i] = sc.nextInt();
         }
-        unsortedArray = new int[array.length];
 
+        unsortedArray = new int[array.length];
         System.arraycopy(array, 0, unsortedArray, 0, array.length);
 
         Arrays.sort(array);

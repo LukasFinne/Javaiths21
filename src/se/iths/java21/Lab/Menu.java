@@ -4,13 +4,10 @@ package se.iths.java21.Lab;
 import java.util.*;
 
 public class Menu {
-    static Scanner sc = new Scanner(System.in);
-
 
     public static void main(String[] args) {
         menu();
         menuSelection();
-
     }
     public static void menu(){
         System.out.println("Välj vad du vill göra!");
@@ -28,6 +25,8 @@ public class Menu {
         Uppochner Uppochner = new Uppochner();
 
         boolean menuFunction = true;
+
+        Scanner sc = new Scanner(System.in);
 
         while(menuFunction){
             String select = sc.next().toLowerCase();
@@ -66,8 +65,5 @@ public class Menu {
         }
 
     }
-
-
-
 
 }

@@ -23,7 +23,7 @@ public class Rockpaperscissors {
 
     private static void winCheck() {
         System.out.print("--------------RESULTAT--------------");
-        if (userWins > computerWins) { //method?
+        if (userWins > computerWins) {
             System.out.printf("\n\033[1mRound:\033[0m %d \nUser: %d Computer %d \n", round, userWins, computerWins);
             System.out.println("Du vann matchen!\n");
         } else {

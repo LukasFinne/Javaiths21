@@ -9,8 +9,7 @@ public class Main {
         System.out.println(fish.isLandWalker());
 
 
-        Seven counter = new Seven(7);
-        Seven sas = new Seven("Hello");
+        Seven counter = new Seven();
         counter.decrease();
         System.out.println(counter.printValue());
         counter.increase();

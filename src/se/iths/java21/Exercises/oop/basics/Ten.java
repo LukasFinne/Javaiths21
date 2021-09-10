@@ -17,7 +17,11 @@ public class Ten {
     }
 
     public boolean canMakePancakes(){
-        return flour >= 1 && milk >= 1 && egg >= 1 && salt >= 1 && butter >= 1;
+        return flour >= 1 &&
+                milk >= 1 &&
+                egg >= 1 &&
+                salt >= 1 &&
+                butter >= 1;
     }
 
     public void makePancakes(){

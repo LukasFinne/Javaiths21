@@ -3,19 +3,13 @@ package se.iths.java21.Exercises.oop.basics;
 public class Seven {
     static int noOfObjects = 0;
 
-    {
+    {//Ett sätt initiera static fält
         noOfObjects += 1;
     }
 
-    private int counter;
+    private int counter; // default value 0
+    private String name; //default value null
 
-
-    public Seven(int counter) {
-        this.counter = counter;
-    }
-    public Seven(String s) {
-
-    }
     public int printObjects(){
         return noOfObjects;
     }

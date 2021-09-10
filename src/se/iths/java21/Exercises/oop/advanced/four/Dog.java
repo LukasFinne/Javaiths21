@@ -9,8 +9,8 @@ public class Dog extends Mammal{
     }
 
 
-    @Override
+
     public void test() {
-        super.test();
+        System.out.println("dog");
     }
 }

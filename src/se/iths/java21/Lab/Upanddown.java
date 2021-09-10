@@ -1,35 +1,39 @@
 package se.iths.java21.Lab;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class Upanddown {
+    DynamicArray dynamicArray = new DynamicArray();
 
     public void upAndDown() {
-        ArrayList<String> arrayList = new ArrayList<>();
-        addWordsToArray(arrayList);
-        reverseArray(arrayList);
+        addWordsToArray();
     }
 
-    private void addWordsToArray(ArrayList<String> arrayList) {
+    private void addWordsToArray() {
+
         Scanner sc = new Scanner(System.in);
         String upAndDownWords;
+        if (dynamicArray.length() > 1)
+            dynamicArray.clearArray();
         do {
             upAndDownWords = sc.next();
-            arrayList.add(upAndDownWords);
-        } while (!arrayList.contains("END"));
+            dynamicArray.add(upAndDownWords);
+            if (dynamicArray.get(dynamicArray.length() - 1).equals("END")) {
+                reverseArray();
+                break;
+            }
+
+        } while (true);
     }
 
-    private void reverseArray(ArrayList<String> arrayList) {
-        for (String x : arrayList) {
-            System.out.println(x);
+    private void reverseArray() {
+
+        for (int i = 0; i < dynamicArray.length(); i++) {
+            System.out.println(dynamicArray.get(i));
         }
-        Collections.reverse(arrayList);
-        arrayList.remove("END");
-        for (String x : arrayList) {
-            System.out.println(x);
-        }
+        dynamicArray.removeLast(dynamicArray.array());
+        dynamicArray.reverseOrder();
         System.out.println("Färdig!");
+
     }
 }

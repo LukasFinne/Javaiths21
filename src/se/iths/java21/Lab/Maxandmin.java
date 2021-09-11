@@ -23,15 +23,15 @@ public class Maxandmin {
     public void bubbleSort(int[] array) {
         boolean swapped = true;
         int count = 0;
-        int tmp;
+        int temp;
         while (swapped) {
             swapped = false;
             count++;
             for (int i = 0; i < array.length - count; i++) {
                 if (array[i] > array[i + 1]) {
-                    tmp = array[i];
+                    temp = array[i];
                     array[i] = array[i + 1];
-                    array[i + 1] = tmp;
+                    array[i + 1] = temp;
                     swapped = true;
                 }
             }

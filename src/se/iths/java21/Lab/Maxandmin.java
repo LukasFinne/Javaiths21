@@ -26,8 +26,8 @@ public class Maxandmin {
 
         arraySort(numberArray);
 
-        System.out.printf("Min value: %d \n", numberArray[0]);
-        System.out.printf("Max value: %d \n \n", numberArray[4]);
+        System.out.printf("Min värde: %d \n", numberArray[0]);
+        System.out.printf("Max värde: %d \n \n", numberArray[4]);
         System.out.println("Färdig!");
     }
 

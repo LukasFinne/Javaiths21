@@ -4,11 +4,15 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Rockpaperscissors {
+
     static int userWins = 0;
     static int computerWins = 0;
     static int round = 0;
 
     public static void rockPaperScissors() {
+        userWins = 0;
+        computerWins = 0;
+        round = 0;
 
         do {
             System.out.printf("\033[1mRunda:\033[0m %d \nAnvändare: %d Datorn: %d \n", round += 1, userWins, computerWins);
@@ -24,11 +28,11 @@ public class Rockpaperscissors {
     private static void winCheck() {
         System.out.print("--------------RESULTAT--------------");
         if (userWins > computerWins) {
-            System.out.printf("\n\033[1mRound:\033[0m %d \nUser: %d Computer %d \n", round, userWins, computerWins);
-            System.out.println("Du vann matchen!\n");
+            System.out.printf("\nAnvändare: %d Datorn: %d \n", userWins, computerWins);
+            System.out.println("\033[1mDu vann matchen!\033[0m\n");
         } else {
-            System.out.printf("\n\033[1mRound:\033[0m %d \nUser: %d Computer %d \n", round, userWins, computerWins);
-            System.out.println("Dator vann matchen!\n");
+            System.out.printf("\nAnvändare: %d Datorn: %d \n", userWins, computerWins);
+            System.out.println("\033[1mDator vann matchen!\033[0m\n");
         }
 
     }
@@ -36,7 +40,7 @@ public class Rockpaperscissors {
     public static void result(String userChoice, String computerChoice) {
 
         if (userChoice.equals(computerChoice)) {
-            System.out.println("Oavjort!");
+            System.out.println("\033[1mOavjort!\033[0m\n");
         } else {
             switch (userChoice) {
                 case "sten" -> rock(computerChoice);
@@ -71,11 +75,11 @@ public class Rockpaperscissors {
     public static void rock(String computerChoice) {
         switch (computerChoice) {
             case "sax" -> {
-                System.out.println("Du vann rundan");
+                System.out.println("\033[1mDu vann matchen!\033[0m\n");
                 userWins++;
             }
             case "påse" -> {
-                System.out.println("Datorn vann rundan");
+                System.out.println("\033[1mDator vann matchen!\033[0m\n");
                 computerWins++;
             }
             default -> System.out.println("Error");
@@ -86,11 +90,11 @@ public class Rockpaperscissors {
     public static void paper(String computerChoice) {
         switch (computerChoice) {
             case "sten" -> {
-                System.out.println("Du vann rundan");
+                System.out.println("\033[1mDu vann matchen!\033[0m\n");
                 userWins++;
             }
             case "sax" -> {
-                System.out.println("Datorn vann rundan");
+                System.out.println("\033[1mDator vann matchen!\033[0m\n");
                 computerWins++;
             }
             default -> System.out.println("Error");
@@ -100,11 +104,11 @@ public class Rockpaperscissors {
     public static void scissors(String computerChoice) {
         switch (computerChoice) {
             case "påse" -> {
-                System.out.println("Du vann rundan");
+                System.out.println("\033[1mDu vann matchen!\033[0m\n");
                 userWins++;
             }
             case "sten" -> {
-                System.out.println("Datorn vann rundan");
+                System.out.println("\033[1mDator vann matchen!\033[0m\n");
                 computerWins++;
             }
             default -> System.out.println("Error");

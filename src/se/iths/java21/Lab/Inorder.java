@@ -19,10 +19,10 @@ public class Inorder {
     }
 
     private void printArrayResult(boolean equals, int sum, int[] numberArray) {
-        System.out.printf("Min value: %d \n", numberArray[0]);
-        System.out.printf("2Min value: %d \n", numberArray[1]);
-        System.out.printf("Max value: %d \n", numberArray[4]);
-        System.out.printf("2Max value: %d \n", numberArray[3]);
+        System.out.printf("Min värde: %d \n", numberArray[0]);
+        System.out.printf("2Min värde: %d \n", numberArray[1]);
+        System.out.printf("Max värde: %d \n", numberArray[4]);
+        System.out.printf("2Max värde: %d \n", numberArray[3]);
         if (equals)
             System.out.println("I ordning: true");
         else

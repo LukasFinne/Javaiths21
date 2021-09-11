@@ -17,7 +17,25 @@ public class Maxandmin {
         unsortedArray = new int[array.length];
         System.arraycopy(array, 0, unsortedArray, 0, array.length);
 
-        Arrays.sort(array);
+        bubbleSort(array);
+    }
+
+    public void bubbleSort(int[] array) {
+        boolean swapped = true;
+        int j = 0;
+        int tmp;
+        while (swapped) {
+            swapped = false;
+            j++;
+            for (int i = 0; i < array.length - j; i++) {
+                if (array[i] > array[i + 1]) {
+                    tmp = array[i];
+                    array[i] = array[i + 1];
+                    array[i + 1] = tmp;
+                    swapped = true;
+                }
+            }
+        }
     }
 
     public void maxMin() {

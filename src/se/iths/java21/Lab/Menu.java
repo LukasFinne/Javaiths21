@@ -21,7 +21,6 @@ public class Menu {
     }
 
     public static void menuSelection() {
-        Rockpaperscissors rockPaperScissors = new Rockpaperscissors();
         Maxandmin Maxandmin = new Maxandmin();
         Inorder inOrder = new Inorder();
         Upanddown Upanddown = new Upanddown();
@@ -45,8 +44,7 @@ public class Menu {
                     menu();
                 }
                 case "3" -> {
-
-                    rockPaperScissors.rockPaperScissors();
+                    Rockpaperscissors.rockPaperScissors();
                     menu();
                 }
                 case "4" -> {

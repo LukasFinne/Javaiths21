@@ -9,6 +9,9 @@ public class Menu {
     private final Command command1;
     private final Command command2;
     private final Command command3;
+    private final Command command4;
+
+    private final Command[] commands = new Command[4];
 
     public Menu() {
         command1 = new NameCommand();
@@ -21,8 +24,12 @@ public class Menu {
         };
         command3 = () -> out.println("3");//Detta används idag, Kan bara användas för vår interface bara har en metod.
         //detta funkar inte med en abstract klass
-    }
 
+        command4 = this::shutdown;//metod referens om den skulle vara static ska det stå Menu::shutdown;
+    }
+    public void shutdown(){//viktigt att en har samma returtyp some interface metod och parametrar
+        System.exit(0);
+    }
 
     public static void main(String[] args) {
         Menu menu = new Menu();
@@ -39,6 +46,9 @@ public class Menu {
     }
 
     private void executeChoice(int choice) {
+
+        //commands[choice].execute(); ett annat sätt att göra en meny med hjälp av arrayyer
+
         switch (choice) {
             case 1 -> command1.execute();
 

@@ -1,6 +1,7 @@
 package se.iths.java21.collections;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +15,8 @@ public class Sorting {
 
         houses.forEach(System.out::println);
         System.out.println("====Sorted====");
-        houses.sort(((o1, o2) -> o1.getRooms() - o2.getRooms()));
+        //houses.sort(((o1, o2) -> o1.getRooms() - o2.getRooms()));
+        houses.sort((Comparator.comparingInt(House::getRooms)));
         houses.forEach(System.out::println);
 
     }

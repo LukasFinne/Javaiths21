@@ -1,6 +1,37 @@
 package se.iths.java21.lab2;
 
-public class Category implements Command{
+import java.util.ArrayList;
+import java.util.List;
+
+public class Category implements Command, ProductInfo{
+
+    private String productName;
+    List<Category> products = new ArrayList<>();
+
+    public static void main(String[] args) {
+        Category c = new Category("Product");
+        Category meat = new Meat();
+        meat.setProducts();
+        meat.getProducts();
+    }
+    public Category(String productName) {
+        this.productName = productName;
+    }
+
+
+    public Category(){
+
+    }
+    public void setProducts(){
+
+    }
+
+
+    public void getProducts(){
+        for (Category c : products) {
+            System.out.println(c.productName);
+        }
+    }
 
 
     public void printCategories(){

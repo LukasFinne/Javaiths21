@@ -10,8 +10,6 @@ public class One {
         this.mammal = mammal;
         this.landWalker = landWalker;
 
-
-
     }
 
     public boolean isPredator() {

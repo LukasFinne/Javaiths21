@@ -8,7 +8,7 @@ public class Menu {
 
     public Menu(){
         commands[1] = () -> System.out.println("Moose");
-        commands[2] =  new Category("Hello");
+        commands[2] =  new Products();
         commands[3] = () -> System.out.println("Moose");
         commands[0] = this::shutdown;
     }

@@ -1,18 +1,21 @@
 package se.iths.java21.lab2;
 
-import java.util.ArrayList;
-
-public class Vegetables extends Category{
+public class Vegetables extends Products {
 
     private String productName;
     private int price;
     private int eanCode;
     private String tradeMark;
+    private int stock;
 
-    public Vegetables(String productName, int price, int eanCode, String tradeMark) {
-        super(productName);
+
+    public Vegetables(String productName,int price, int stock, String tradeMark, int eanCode) {
+
+        this.productName = productName;
         this.price = price;
-        this.eanCode = eanCode;
+        this.stock = stock;
         this.tradeMark = tradeMark;
+        this.eanCode = eanCode;
     }
+
 }

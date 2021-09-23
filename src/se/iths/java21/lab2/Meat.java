@@ -3,7 +3,7 @@ package se.iths.java21.lab2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Meat extends Products implements ProductInfo{
+public class Meat extends Products {
     private String productName;
     private int price;
     private int eanCode;
@@ -33,12 +33,22 @@ public class Meat extends Products implements ProductInfo{
     }
 
     public void getProducts(){
+        int counter = 1;
         for (Meat m : meatList) {
-            System.out.printf("%s, %dkr I lager:%d \n Gjort av: %s \n eanCode: %d,  \n", m.productName, m.price,
+            System.out.print(counter+".");
+            System.out.printf("%s, Pris:%dkr I lager:%d \n Gjort av: %s \n eanCode: %d,  \n",m.productName, m.price,
                     m.stock,m.tradeMark, m.eanCode );
+            counter++;
         }
     }
 
+    public String getName(int i){
+        return meatList.get(i).productName;
+    }
+
+    public int getPrice(int i){
+        return meatList.get(i).price;
+    }
     public int addStock(int i){
        return meatList.get(i).stock += 1;
     }

@@ -1,9 +1,11 @@
 package se.iths.java21.lab2;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-public class Products implements Command,ProductInfo{
+public class Products implements Command, ProductInfo {
 
     protected String productName;
     protected int price;
@@ -17,13 +19,11 @@ public class Products implements Command,ProductInfo{
     List<Products> dryGoods = new ArrayList<>();
 
     public static void main(String[] args) {
-       Products meat = new Meat();
-       Products products1 = new Products();
-       meat.setProducts();
-
-       System.out.println(meat.price);
+        Products products1 = new Products();
+        Products meat = new Meat();
     }
-    public Products(String productName,int price, int stock, String tradeMark, int eanCode) {
+
+    public Products(String productName, int price, int stock, String tradeMark, int eanCode) {
         this.productName = productName;
         this.price = price;
         this.stock = stock;
@@ -31,33 +31,49 @@ public class Products implements Command,ProductInfo{
         this.eanCode = eanCode;
     }
 
-    public Products(){
+    public Products() {
 
     }
 
-    public void setProducts(){
+    public void setProducts() {
 
     }
 
-
-    public void getProducts(){
+    public void getProducts() {
         for (Products c : products) {
             System.out.println(c.productName);
         }
-
     }
 
-    public void printCategories(){
+
+    public int getPrice(int i) {
+        return 0;
+    }
+    public String getName(int i){
+        return "Test";
+    }
+
+    public void printCategories() {
+        Scanner sc = new Scanner(System.in);
+
         System.out.println("These are our categories! Please search for what you want to look at!");
-        setProducts();
-        getProducts();
+        System.out.println("Meat");
+        System.out.println("Vegetables");
+        System.out.println("DryGoods");
+        System.out.println("1. Search");
+        System.out.println("0. Back");
+        String test = sc.next();
+        if(test.equals("1"))
+            System.out.println("Searching");
+
     }
 
-    public int addStock(int i){
+    public int addStock(int i) {
         return i;
 
     }
-    public int removeStock(int i){
+
+    public int removeStock(int i) {
         return 0;
     }
 

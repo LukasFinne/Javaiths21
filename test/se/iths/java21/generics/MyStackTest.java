@@ -16,4 +16,25 @@ class MyStackTest {
         assertEquals("First Item",result);
     }
 
+
+
+    @Test
+    void pushTwoItemsPopShouldReturnLastAddedItem() {
+        myStack.push("First Item");
+        myStack.push("Second Item");
+        String result = myStack.pop();
+
+        assertEquals("Second Item",result);
+    }
+
+
+    @Test
+    void pushTwoItemsPopTwiceShouldReturnBothItemsInLIFOOrder() {
+        myStack.push("First Item");
+        myStack.push("Second Item");
+
+        assertEquals("Second Item", myStack.pop());
+        assertEquals("First Item", myStack.pop());
+    }
+
 }

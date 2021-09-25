@@ -6,10 +6,10 @@ public class Menu {
     private final Scanner sc = new Scanner(System.in);
     private final Command[] commands = new Command[4];
 
-    public Menu(){
+    public Menu() {
         commands[1] = () -> System.out.println("Moose");
-        commands[2] =  new Products();
-        commands[3] = () -> System.out.println("Moose");
+        commands[2] = new Products();
+        commands[3] = new Cart();
         commands[0] = this::shutdown;
     }
 
@@ -18,28 +18,28 @@ public class Menu {
         menu.run();
     }
 
-    public void shutdown(){
+    public void shutdown() {
         System.exit(0);
     }
 
-    private void run(){
+    private void run() {
         int choice = 0;
-        do{
+        do {
             printMenuOption();
             choice = readChoice(sc);
             executeChoice(choice);
-        }while(choice != 0);
+        } while (choice != 0);
     }
 
     private void executeChoice(int choice) {
         commands[choice].execute();
     }
 
-    private int readChoice(Scanner sc){
+    private int readChoice(Scanner sc) {
         return sc.nextInt();
     }
 
-    private void printMenuOption(){
+    private void printMenuOption() {
         System.out.println("1. Search");
         System.out.println("2. Categories");
         System.out.println("3. Cart");

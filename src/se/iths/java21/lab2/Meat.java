@@ -30,6 +30,9 @@ public class Meat extends Products {
     public void setProducts(){
         meatList.add(new Meat("Cow",100, stock, tradeMark,100 ));
         meatList.add(new Meat("Chicken",50,stock, tradeMark, 101  ));
+        addStock(0);
+        addStock(1);
+
     }
 
     public void getProducts(){
@@ -51,6 +54,10 @@ public class Meat extends Products {
     }
     public int addStock(int i){
        return meatList.get(i).stock += 1;
+    }
+
+    public int stock(int i){
+        return meatList.get(i).stock;
     }
 
     public int removeStock(int i){

@@ -52,6 +52,9 @@ public class Products implements Command, ProductInfo {
     public String getName(int i){
         return "Test";
     }
+    public int stock(int i){
+        return 0;
+    }
 
     public void printCategories() {
         Scanner sc = new Scanner(System.in);

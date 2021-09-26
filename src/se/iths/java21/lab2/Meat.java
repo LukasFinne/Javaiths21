@@ -9,62 +9,81 @@ public class Meat extends Products {
     private int eanCode;
     private String tradeMark = "Ica";
     private int stock;
+    private boolean alreadyExecuted;
 
     List<Meat> meatProducts = new ArrayList<>();
+    Cart cart = new Cart();
+    Menu menu2 = new Menu();
+
 
     public static void main(String[] args) {
         Meat m = new Meat();
     }
 
-    public Meat(String productName,int price, int stock, String tradeMark, int eanCode) {
+    public Meat(String productName, int price, int stock, String tradeMark, int eanCode) {
         this.productName = productName;
         this.price = price;
         this.stock = stock;
         this.tradeMark = tradeMark;
         this.eanCode = eanCode;
     }
-    public Meat(){
+
+    public Meat() {
+        setProducts();
+        getProducts();
 
     }
 
-    public void setProducts(){
-        meatList.add(new Meat("Cow",100, stock, tradeMark,100 ));
-        meatList.add(new Meat("Chicken",50,stock, tradeMark, 101  ));
-        addStock(0);
-        addStock(1);
+    public void addToCart(int i) {
+        if (stock(i) == 0) {
+            System.out.println("Not in stock");
+        } else {
+            cart.cart.add(getName(i));
+            removeStock(i);
+            cart.sum += getPrice(i);
+        }
+    }
+
+    public void setProducts() {
+        if (!alreadyExecuted) {
+            meatList.add(new Meat("Cow", 100, stock, tradeMark, 100));
+            meatList.add(new Meat("Chicken", 50, stock, tradeMark, 101));
+            addStock(0);
+            addStock(1);
+            alreadyExecuted = true;
+        }
 
     }
 
-    public void getProducts(){
+    public void getProducts() {
         int counter = 1;
         for (Meat m : meatList) {
-            System.out.print(counter+".");
-            System.out.printf("%s, Pris:%dkr I lager:%d \n Gjort av: %s \n eanCode: %d,  \n",m.productName, m.price,
-                    m.stock,m.tradeMark, m.eanCode );
+            System.out.print(counter + ".");
+            System.out.printf("%s, Pris:%dkr I lager:%d \n Gjort av: %s \n eanCode: %d,  \n", m.productName, m.price,
+                    m.stock, m.tradeMark, m.eanCode);
             counter++;
         }
     }
 
-    public String getName(int i){
+    public String getName(int i) {
         return meatList.get(i).productName;
     }
 
-    public int getPrice(int i){
+    public int getPrice(int i) {
         return meatList.get(i).price;
     }
-    public int addStock(int i){
-       return meatList.get(i).stock += 1;
+
+    public int addStock(int i) {
+        return meatList.get(i).stock += 1;
     }
 
-    public int stock(int i){
+    public int stock(int i) {
         return meatList.get(i).stock;
     }
 
-    public int removeStock(int i){
+    public int removeStock(int i) {
         return meatList.get(i).stock -= 1;
     }
-
-
 
 
 }

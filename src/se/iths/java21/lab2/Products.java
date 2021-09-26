@@ -45,6 +45,10 @@ public class Products implements Command, ProductInfo {
         }
     }
 
+    public void addToCart(int i){
+
+    }
+
 
     public int getPrice(int i) {
         return 0;

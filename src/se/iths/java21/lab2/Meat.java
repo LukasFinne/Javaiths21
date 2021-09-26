@@ -12,8 +12,6 @@ public class Meat extends Products {
     private boolean alreadyExecuted;
 
     List<Meat> meatProducts = new ArrayList<>();
-    Cart cart = new Cart();
-    Menu menu2 = new Menu();
 
 
     public static void main(String[] args) {
@@ -29,20 +27,10 @@ public class Meat extends Products {
     }
 
     public Meat() {
-        setProducts();
-        getProducts();
 
     }
 
-    public void addToCart(int i) {
-        if (stock(i) == 0) {
-            System.out.println("Not in stock");
-        } else {
-            cart.cart.add(getName(i));
-            removeStock(i);
-            cart.sum += getPrice(i);
-        }
-    }
+
 
     public void setProducts() {
         if (!alreadyExecuted) {

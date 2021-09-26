@@ -31,11 +31,11 @@ public class Menu {
         } while (choice != 0);
     }
 
-    private void executeChoice(int choice) {
+    protected void executeChoice(int choice) {
         commands[choice].execute();
     }
 
-    private int readChoice(Scanner sc) {
+    protected int readChoice(Scanner sc) {
         return sc.nextInt();
     }
 

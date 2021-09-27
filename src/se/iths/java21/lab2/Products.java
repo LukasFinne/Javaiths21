@@ -1,6 +1,5 @@
 package se.iths.java21.lab2;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,26 +8,15 @@ public class Products implements Command, ProductInfo {
 
     protected String productName;
     protected int price;
-    protected int eanCode;
-    protected String tradeMark;
-    protected int stock;
 
     List<Products> products = new ArrayList<>();
     List<Meat> meatList = new ArrayList<>();
     List<Products> vegetables = new ArrayList<>();
     List<Products> dryGoods = new ArrayList<>();
 
-    public static void main(String[] args) {
-        Products products1 = new Products();
-        Products meat = new Meat();
-    }
-
-    public Products(String productName, int price, int stock, String tradeMark, int eanCode) {
+    public Products(String productName, int price) {
         this.productName = productName;
         this.price = price;
-        this.stock = stock;
-        this.tradeMark = tradeMark;
-        this.eanCode = eanCode;
     }
 
     public Products() {

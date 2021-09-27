@@ -1,26 +1,14 @@
 package se.iths.java21.lab2;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Meat extends Products {
-    private String productName;
-    private int price;
     private int eanCode;
     private String tradeMark = "Ica";
     private int stock;
     private boolean alreadyExecuted;
 
-    List<Meat> meatProducts = new ArrayList<>();
-
-
-    public static void main(String[] args) {
-        Meat m = new Meat();
-    }
-
-    public Meat(String productName, int price, int stock, String tradeMark, int eanCode) {
-        this.productName = productName;
-        this.price = price;
+    private Meat(String productName, int price, int stock, String tradeMark, int eanCode) {
+        super(productName, price);
         this.stock = stock;
         this.tradeMark = tradeMark;
         this.eanCode = eanCode;
@@ -30,8 +18,6 @@ public class Meat extends Products {
 
     }
 
-
-
     public void setProducts() {
         if (!alreadyExecuted) {
             meatList.add(new Meat("Cow", 100, stock, tradeMark, 100));
@@ -40,7 +26,6 @@ public class Meat extends Products {
             addStock(1);
             alreadyExecuted = true;
         }
-
     }
 
     public void getProducts() {

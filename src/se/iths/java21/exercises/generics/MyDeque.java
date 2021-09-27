@@ -51,7 +51,7 @@ public class MyDeque<T> implements Iterable<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new MyDequeIterator();
     }
 
     public void forEach(Consumer<? super T> consumer) {
@@ -71,10 +71,30 @@ public class MyDeque<T> implements Iterable<T> {
             temp = temp.prev;
         }
     }
+
+    class MyDequeIterator implements Iterator<T>{
+
+        private DNode<T> next = head;
+        @Override
+        public boolean hasNext() {
+            return next != null;
+        }
+
+        @Override
+        public T next() {
+            T t = next.data;
+            next = next.next;
+            return t;
+        }
+    }
+    static class DNode<T> {
+        T data;
+        DNode<T> next;
+        DNode<T> prev;
+    }
+
 }
 
-class DNode<T> {
-    T data;
-    DNode<T> next;
-    DNode<T> prev;
-}
+
+
+

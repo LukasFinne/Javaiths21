@@ -1,11 +1,12 @@
-package streams;
+package se.iths.java21.streams;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static streams.Sex.*;
+import static se.iths.java21.streams.Sex.*;
 
 public class StreamDemo {
 
@@ -32,7 +33,16 @@ public class StreamDemo {
 
 
         personRStream.forEach(System.out::println);
+
+        Stream.iterate(0,n -> ++n)
+                .limit(100)
+                .filter(i -> i %2 == 0)
+                .forEach(System.out::println);
+
+        persons.stream().sorted(Comparator.comparingInt(PersonR::age)).forEach(System.out::println);
     }
+
+
 
 
     private static Optional<PersonR> getPersonWithName(List<PersonR> persons, String name){

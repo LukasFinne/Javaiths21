@@ -1,4 +1,4 @@
-package streams;
+package se.iths.java21.streams;
 
 import java.util.Objects;
 

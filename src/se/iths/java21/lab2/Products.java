@@ -1,5 +1,7 @@
 package se.iths.java21.lab2;
 
+import se.iths.java21.lab2v2.Command;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;

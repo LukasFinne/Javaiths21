@@ -1,6 +1,4 @@
-package se.iths.java21.lab2;
-
-import se.iths.java21.lab2v2.Command;
+package se.iths.java21.lab2v2;
 
 import java.util.Scanner;
 
@@ -9,9 +7,9 @@ public class Menu {
     private final Command[] commands = new Command[4];
 
     public Menu() {
-        commands[1] = () -> System.out.println("Moose");
-        commands[2] = new Products();
-        commands[3] = new Cart();
+        commands[1] = new Search();
+        commands[2] = this::categories;
+        commands[3] = () -> System.out.println("test");
         commands[0] = this::shutdown;
     }
 
@@ -33,19 +31,26 @@ public class Menu {
         } while (choice != 0);
     }
 
-    protected void executeChoice(int choice) {
+    private void executeChoice(int choice) {
         commands[choice].execute();
     }
 
-    protected int readChoice(Scanner sc) {
+    private int readChoice(Scanner sc) {
         return sc.nextInt();
+    }
+
+    private void categories(){
+        System.out.println("These are our Categories! Please search for one of the categories to see the products!");
+        for (Categories c : Categories.values()) {
+            System.out.println(c);
+        }
+
     }
 
     private void printMenuOption() {
         System.out.println("1. Search");
         System.out.println("2. Categories");
         System.out.println("3. Cart");
-        System.out.println("4. Check out");
         System.out.println("0. Exit program");
     }
 

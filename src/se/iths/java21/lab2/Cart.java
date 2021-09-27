@@ -22,7 +22,7 @@ public class Cart implements Command {
         runMeat();
     }
 
-//Not remove
+    //Not remove
    /* public void menuSelectionMeat() {
         boolean run = true;
         while (run) {
@@ -85,7 +85,7 @@ public class Cart implements Command {
     private void run() {
         int choice = 0;
         do {
-            tempMenu();
+            //tempMenu();
             choice = readChoice(sc);
             executeChoice(choice);
         } while (choice != 0);
@@ -100,19 +100,13 @@ public class Cart implements Command {
         } while (choice != 0);
     }
 
-
     private void meat() {
-
         meat.setProducts();
         meat.getProducts();
         commands[1] = () -> addMeatToCart(0);
         commands[2] = () -> addMeatToCart(1);
         printMenuOption(3,4,0);
 
-    }
-
-    private void tempMenu() {
-        System.out.println("1. meat");
     }
 
     private void receipt() {

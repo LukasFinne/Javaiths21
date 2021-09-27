@@ -1,4 +1,4 @@
-package se.iths.java21;
+package se.iths.java21.randomStuff;
 
 import java.util.ArrayList;
 import java.util.Random;

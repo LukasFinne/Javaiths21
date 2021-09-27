@@ -6,6 +6,9 @@ public class Products {
     private String name;
     private int price;
     private Categories categories;
+
+
+
     private int eanCode;
     private String tradeMark;
 
@@ -15,6 +18,14 @@ public class Products {
         this.categories = categories;
         this.eanCode = eanCode;
         this.tradeMark = tradeMark;
+    }
+
+    public Categories getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Categories categories) {
+        this.categories = categories;
     }
 
     public String getName() {

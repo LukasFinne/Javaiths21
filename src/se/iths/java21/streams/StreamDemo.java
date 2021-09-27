@@ -38,7 +38,6 @@ public class StreamDemo {
                 .limit(100)
                 .filter(i -> i %2 == 0)
                 .forEach(System.out::println);
-
         persons.stream().sorted(Comparator.comparingInt(PersonR::age)).forEach(System.out::println);
     }
 

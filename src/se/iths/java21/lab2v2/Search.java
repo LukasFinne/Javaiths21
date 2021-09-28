@@ -29,6 +29,6 @@ public class Search implements Command{
 
     @Override
     public void execute() {
-        searchForCategories(products, sc.next().toUpperCase()).
+      //  searchForCategories(products, sc.next().toUpperCase()).
     }
 }

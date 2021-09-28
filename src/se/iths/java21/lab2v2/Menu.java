@@ -3,13 +3,15 @@ package se.iths.java21.lab2v2;
 import java.util.Scanner;
 
 public class Menu {
-    private final Scanner sc = new Scanner(System.in);
-    private final Command[] commands = new Command[4];
+    private static final Scanner sc = new Scanner(System.in);
+    private static final Command[] commands = new Command[5];
+    Products p = new Products();
 
     public Menu() {
-        commands[1] = new Search();
+        commands[1] = new Products();
         commands[2] = this::categories;
-        commands[3] = () -> System.out.println("test");
+        commands[3] = () -> p.getAllProducts().forEach(System.out::println);
+        commands[4] = new Cart();
         commands[0] = this::shutdown;
     }
 
@@ -18,7 +20,7 @@ public class Menu {
         menu.run();
     }
 
-    public void shutdown() {
+    private void shutdown() {
         System.exit(0);
     }
 
@@ -50,7 +52,8 @@ public class Menu {
     private void printMenuOption() {
         System.out.println("1. Search");
         System.out.println("2. Categories");
-        System.out.println("3. Cart");
+        System.out.println("3. Show all products");
+        System.out.println("4. Cart");
         System.out.println("0. Exit program");
     }
 

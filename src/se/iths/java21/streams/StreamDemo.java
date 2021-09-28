@@ -41,9 +41,6 @@ public class StreamDemo {
         persons.stream().sorted(Comparator.comparingInt(PersonR::age)).forEach(System.out::println);
     }
 
-
-
-
     private static Optional<PersonR> getPersonWithName(List<PersonR> persons, String name){
        return persons.stream()
                .filter(personR -> personR.name().equals(name))
@@ -72,6 +69,10 @@ public class StreamDemo {
                 new PersonR("Elisabeth", 12, FEMALE, false),
                 new PersonR("Sven", 24, OTHER, true));
         return persons;
+
+
+        §
+
     }
 
 

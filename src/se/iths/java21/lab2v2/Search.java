@@ -12,7 +12,7 @@ public class Search implements Command{
     }
 
     private static void searchForCategories(List<Products> products2, String name) {
-        products2.stream().filter(products -> products.getCategories().equals(Categories.valueOf(name))).forEach(System.out::println);
+     //   products2.stream().filter(products -> products.getCategories().equals(Categories.valueOf(name))).forEach(System.out::println);
     }
 
     private static List<Products> getProducts() {

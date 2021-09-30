@@ -20,10 +20,11 @@ public class Products implements Command {
         return Collections.unmodifiableList(productsList);
     }
 
-    public Optional<ProductsInfo> findProductById(long productsId) {
-        return productsList.stream()
+    public void findProductById(long productsId) {
+            productsList.stream()
                 .filter(ProductsInfo -> ProductsInfo.eanCode() == productsId)
-                .findAny();
+                .map(productsInfo -> new NameAndPrice(productsInfo.name(), productsInfo.price()))
+                .findFirst().ifPresent(System.out::println);
     }
 
     public List<ProductsInfo> findProductByCategory(String category) {
@@ -60,7 +61,7 @@ public class Products implements Command {
         switch (sc.next().toLowerCase()) {
             case "id" -> {
                 System.out.println("Write the Id you want to find!");
-                getId(sc);
+                findProductById(getId(sc));
 
                 System.out.println("Write the name of the item you want to add! or write 0 if you want to go back ");
                 String productName = sc.next().toLowerCase();
@@ -92,19 +93,21 @@ public class Products implements Command {
 
     private long getId(Scanner sc) {
         long id = sc.nextLong();
-        System.out.println(findProductById(id));
         return id;
     }
 
     private void addProductToCartCheck(String word) {
         System.out.println("Write the name of the item you want to add!");
+
         c.addToCart(getProductName(word));
     }
 
-    private List<ProductsInfo> getProductName(String word) {
+    private List<NameAndPrice> getProductName(String word) {
         return productsList.stream()
                 .filter(ProductsInfo -> ProductsInfo.name().equals(word))
+                .map(productsInfo -> new NameAndPrice(productsInfo.name(), productsInfo.price()))
                 .toList();
+
     }
 
 

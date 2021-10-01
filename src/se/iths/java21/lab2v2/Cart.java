@@ -7,25 +7,26 @@ import java.util.stream.Collectors;
 public class Cart implements Command{
 
     private static List<NameAndPrice> productListCopy;
+    public static Map<String, Integer> productMap = new HashMap<>();
     public static List<List<NameAndPrice>> cart = new ArrayList<>();
 
 
     public void showCart(){
         System.out.println("Products in the cart:");
-        cart.forEach(System.out::println);
-        System.out.println(checkFrequency(testList(cart)));
+        productMap.forEach((key, value) -> System.out.println(key + ", " + value +"Kr"));
     }
 
 
     public void addToCart(List<NameAndPrice> list){
         productListCopy = new ArrayList<>(list);
-        cart.add(productListCopy);
 
-        if(checkFrequency(testList(cart)) > 1){
-            cart.stream()
-                    .flatMap(List::stream)
-                    .toList().get(0).increasePrice();
-        }
+        String keyToBeChecked = productListCopy.get(0).productName();
+
+        if(productMap.containsKey(keyToBeChecked))
+            productMap.put(productListCopy.get(0).productName(), productMap.get(keyToBeChecked) + productListCopy.get(0).price());
+        else
+            productMap.put(productListCopy.get(0).productName(), productListCopy.get(0).price());
+
 
         realItemCheck();
     }
@@ -37,7 +38,7 @@ public class Cart implements Command{
             System.out.println("Added to cart");
     }
 
-    private List<NameAndPrice> testList(List<List<NameAndPrice>> list){
+    private List<NameAndPrice> convertToList(List<List<NameAndPrice>> list){
         return cart.stream()
                 .flatMap(List::stream)
                 .toList();

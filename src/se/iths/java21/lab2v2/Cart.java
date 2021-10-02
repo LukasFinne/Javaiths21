@@ -5,30 +5,41 @@ import java.util.stream.Collectors;
 
 
 public class Cart implements Command{
-
+    private int amountInCart = 1;
     private static List<NameAndPrice> productListCopy;
     public static Map<String, Integer> productMap = new HashMap<>();
+
     public static List<List<NameAndPrice>> cart = new ArrayList<>();
 
 
     public void showCart(){
         System.out.println("Products in the cart:");
-        productMap.forEach((key, value) -> System.out.println(key + ", " + value +"Kr"));
+        productMap.forEach((key, value) -> System.out.println(key + ", " + value +"Kr" + "x" + amountInCart));
     }
 
 
     public void addToCart(List<NameAndPrice> list){
         productListCopy = new ArrayList<>(list);
 
-        String keyToBeChecked = productListCopy.get(0).productName();
+        String keyToBeChecked = productName();
 
-        if(productMap.containsKey(keyToBeChecked))
-            productMap.put(productListCopy.get(0).productName(), productMap.get(keyToBeChecked) + productListCopy.get(0).price());
+        if(productMap.containsKey(keyToBeChecked)){
+
+            productMap.put(productName(), productMap.get(keyToBeChecked) + productPrice());
+        }
         else
-            productMap.put(productListCopy.get(0).productName(), productListCopy.get(0).price());
+            productMap.put(productName(), productPrice());
 
 
         realItemCheck();
+    }
+
+    private int productPrice() {
+        return productListCopy.get(0).price();
+    }
+
+    private String productName() {
+        return productListCopy.get(0).productName();
     }
 
     private void realItemCheck() {
@@ -45,7 +56,7 @@ public class Cart implements Command{
     }
 
     private int checkFrequency(List<NameAndPrice> list){
-        String productsCheck = productListCopy.get(0).productName();
+        String productsCheck = productName();
         List<String> test = list.stream().map(NameAndPrice::productName).toList();
         return Collections.frequency(test, productsCheck);
     }

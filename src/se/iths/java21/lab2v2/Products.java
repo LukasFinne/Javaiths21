@@ -1,6 +1,7 @@
 package se.iths.java21.lab2v2;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 
 public class Products implements Command {
@@ -21,7 +22,7 @@ public class Products implements Command {
     }
 
     public void findProductById(long productsId) {
-            productsList.stream()
+        productsList.stream()
                 .filter(ProductsInfo -> ProductsInfo.eanCode() == productsId)
                 .map(productsInfo -> new NameAndPrice(productsInfo.name(), productsInfo.price()))
                 .findFirst().ifPresent(System.out::println);
@@ -40,13 +41,12 @@ public class Products implements Command {
 
     private void productsFromFile() {
         if (!alreadyExecuted) {
-            addProducts(new ProductsInfo("nötfärs", 35, Categories.MEAT, 1001, "Ica"));
-            addProducts(new ProductsInfo("nötfärs", 35, Categories.MEAT, 1001, "Ica"));
-            addProducts(new ProductsInfo("blandfärs", 30, Categories.MEAT, 1002, "Ica"));
-            addProducts(new ProductsInfo("kyckling", 25, Categories.MEAT, 1003, "Ica"));
-            addProducts(new ProductsInfo("vitlök", 20, Categories.VEGETABLES, 2001, "Coop"));
-            addProducts(new ProductsInfo("senap", 40, Categories.DRYGOODS, 3001, "Willys"));
-            addProducts(new ProductsInfo("peppar", 50, Categories.DRYGOODS, 3002, "Willys"));
+            addProducts(new ProductsInfo("nötfärs", 35, Categories.MEAT, 1001, "Ica", 2));
+            addProducts(new ProductsInfo("blandfärs", 30, Categories.MEAT, 1002, "Ica", 0));
+            addProducts(new ProductsInfo("kyckling", 25, Categories.MEAT, 1003, "Ica", 4));
+            addProducts(new ProductsInfo("vitlök", 20, Categories.VEGETABLES, 2001, "Coop", 1));
+            addProducts(new ProductsInfo("senap", 40, Categories.DRYGOODS, 3001, "Willys", 6));
+            addProducts(new ProductsInfo("peppar", 50, Categories.DRYGOODS, 3002, "Willys", 10));
             alreadyExecuted = true;
         }
     }
@@ -64,8 +64,8 @@ public class Products implements Command {
                 findProductById(getId(sc));
 
                 System.out.println("Write the name of the item you want to add! or write 0 if you want to go back ");
-                String productName = sc.next().toLowerCase();
-                addProductToCartCheck(productName);
+                String nameOfProduct = sc.next().toLowerCase();
+                addProductToCart(nameOfProduct);
 
             }
             case "category" -> {
@@ -76,7 +76,7 @@ public class Products implements Command {
 
                 System.out.println("Write the name of the item you want to add! or write 0 if you want to go back ");
                 String productName = sc.next().toLowerCase();
-                addProductToCartCheck(productName);
+                addProductToCart(productName);
             }
             case "name" -> {
                 System.out.println("Write the name you want to find!");
@@ -96,15 +96,39 @@ public class Products implements Command {
         return id;
     }
 
-    private void addProductToCartCheck(String word) {
+    private void addProductToCart(String nameOfProduct) {
         System.out.println("Write the name of the item you want to add!");
-
-        c.addToCart(getProductName(word));
+        stockCheck(nameOfProduct);
     }
 
-    private List<NameAndPrice> getProductName(String word) {
+    private void stockCheck(String nameOfProduct) {
+        if(inStockOrNot(nameOfProduct))
+            System.out.println("Not in stock");
+       else{
+            decreaseStock(nameOfProduct);
+            c.addToCart(productName(nameOfProduct));
+        }
+    }
+
+
+    private void decreaseStock(String word) {
+        getProductsInfoStream(word)
+                .forEach(p -> p.setStock(p.stock() - 1));
+
+    }
+
+    private Stream<ProductsInfo> getProductsInfoStream(String word) {
         return productsList.stream()
-                .filter(ProductsInfo -> ProductsInfo.name().equals(word))
+                .filter(ProductsInfo -> ProductsInfo.name().equals(word));
+    }
+
+    private boolean inStockOrNot(String word){
+        return getProductsInfoStream(word)
+                .anyMatch(productsInfo -> productsInfo.stock() == 0);
+    }
+
+    private List<NameAndPrice> productName(String word) {
+        return getProductsInfoStream(word)
                 .map(productsInfo -> new NameAndPrice(productsInfo.name(), productsInfo.price()))
                 .toList();
 

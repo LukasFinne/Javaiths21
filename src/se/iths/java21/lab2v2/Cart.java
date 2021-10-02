@@ -14,7 +14,7 @@ public class Cart implements Command{
     public void showCart(){
         System.out.println("Products in the cart:");
         productMap.forEach((key, value) -> System.out.println(key + ", " + "x" + value));
-        System.out.println("Summa:"+ sum);
+        System.out.println("Summa:"+ sum + "Kr");
 
     }
 
@@ -22,10 +22,8 @@ public class Cart implements Command{
     public void addToCart(List<NameAndPrice> list){
         productListCopy = new ArrayList<>(list);
 
-
         System.out.println("before if : " + productMap.containsKey(productListCopy));
         if(productMap.containsKey(productListCopy)){
-           // productMap.put(productName(), productMap.get(keyToBeChecked) + productPrice());
             productMap.put(productListCopy, productMap.get(productListCopy) + 1);
         }
         else{

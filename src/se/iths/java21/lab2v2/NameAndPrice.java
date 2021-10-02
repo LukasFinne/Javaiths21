@@ -26,10 +26,6 @@ import java.util.Objects;
         return price;
     }
 
-    public int increasePrice(){
-        return price += price;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;

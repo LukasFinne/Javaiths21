@@ -1,34 +1,37 @@
 package se.iths.java21.lab2v2;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class Cart implements Command{
-    private int amountInCart = 1;
+    private final int amountInCart = 1;
+    private static int sum = 0;
     private static List<NameAndPrice> productListCopy;
-    public static Map<String, Integer> productMap = new HashMap<>();
-
+    public static Map<List<NameAndPrice>, Integer> productMap = new HashMap<>();
     public static List<List<NameAndPrice>> cart = new ArrayList<>();
 
 
     public void showCart(){
         System.out.println("Products in the cart:");
-        productMap.forEach((key, value) -> System.out.println(key + ", " + value +"Kr" + "x" + amountInCart));
+        productMap.forEach((key, value) -> System.out.println(key + ", " + "x" + value));
+        System.out.println("Summa:"+ sum);
+
     }
 
 
     public void addToCart(List<NameAndPrice> list){
         productListCopy = new ArrayList<>(list);
 
-        String keyToBeChecked = productName();
 
-        if(productMap.containsKey(keyToBeChecked)){
-
-            productMap.put(productName(), productMap.get(keyToBeChecked) + productPrice());
+        System.out.println("before if : " + productMap.containsKey(productListCopy));
+        if(productMap.containsKey(productListCopy)){
+           // productMap.put(productName(), productMap.get(keyToBeChecked) + productPrice());
+            productMap.put(productListCopy, productMap.get(productListCopy) + 1);
         }
-        else
-            productMap.put(productName(), productPrice());
+        else{
+            productMap.put(productListCopy,amountInCart);
+        }
+        sum += productPrice();
 
 
         realItemCheck();
@@ -53,12 +56,6 @@ public class Cart implements Command{
         return cart.stream()
                 .flatMap(List::stream)
                 .toList();
-    }
-
-    private int checkFrequency(List<NameAndPrice> list){
-        String productsCheck = productName();
-        List<String> test = list.stream().map(NameAndPrice::productName).toList();
-        return Collections.frequency(test, productsCheck);
     }
 
     @Override

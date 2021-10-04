@@ -105,7 +105,6 @@ public class Products implements Command {
         }
     }
 
-
     private Stream<ProductsInfo> filterNameStream(String nameOfProduct) {
         return productsList.stream()
                 .filter(ProductsInfo -> ProductsInfo.name().equals(nameOfProduct));
@@ -116,8 +115,6 @@ public class Products implements Command {
                 .forEach(p -> p.setStock(p.stock() - 1));
 
     }
-
-
 
     private boolean inStockOrNot(String nameOfProduct){
         return filterNameStream(nameOfProduct)

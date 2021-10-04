@@ -1,12 +1,20 @@
 package se.iths.java21.lab2v2;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
 public class Products implements Command {
     Scanner sc = new Scanner(System.in);
     private List<ProductsInfo> productsList;
+    private static Pattern pattern = Pattern.compile(",");
+    String homePath = System.getProperty("user.home");
+    Path csvPath = Path.of(homePath, "ProductInfo.csv");
     boolean alreadyExecuted = false;
 
     Cart c = new Cart();
@@ -39,18 +47,32 @@ public class Products implements Command {
         productsList.add(productsInfo);
     }
 
-    private void productsFromFile() {
-        if (!alreadyExecuted) {
-            addProducts(new ProductsInfo("nötfärs", 35, Categories.MEAT, 1001, "Ica", 2));
-            addProducts(new ProductsInfo("blandfärs", 30, Categories.MEAT, 1002, "Ica", 0));
-            addProducts(new ProductsInfo("kyckling", 25, Categories.MEAT, 1003, "Ica", 4));
-            addProducts(new ProductsInfo("vitlök", 20, Categories.VEGETABLES, 2001, "Coop", 1));
-            addProducts(new ProductsInfo("senap", 40, Categories.DRYGOODS, 3001, "Willys", 6));
-            addProducts(new ProductsInfo("peppar", 50, Categories.DRYGOODS, 3002, "Willys", 10));
-            alreadyExecuted = true;
-        }
-    }
 
+    private void productsFromFile() {
+        try(Stream<String> lines  = Files.lines(csvPath)){
+            productsList = lines.skip(1)
+                    .map(Products::createProducts)
+                    .collect(Collectors.toList());
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+    }
+    /* if (!alreadyExecuted) {
+          addProducts(new ProductsInfo("nötfärs", 35, Categories.MEAT, 1001, "Ica", 2));
+          addProducts(new ProductsInfo("blandfärs", 30, Categories.MEAT, 1002, "Ica", 0));
+          addProducts(new ProductsInfo("kyckling", 25, Categories.MEAT, 1003, "Ica", 4));
+          addProducts(new ProductsInfo("vitlök", 20, Categories.VEGETABLES, 2001, "Coop", 1));
+          addProducts(new ProductsInfo("senap", 40, Categories.DRYGOODS, 3001, "Willys", 6));
+          addProducts(new ProductsInfo("peppar", 50, Categories.DRYGOODS, 3002, "Willys", 10));
+          alreadyExecuted = true;
+      } */
+
+    private static ProductsInfo createProducts(String line){
+        String[] arr = pattern.split(line);
+        return new ProductsInfo(arr[0],Integer.parseInt(arr[1]),Categories.valueOf(arr[2]),Integer.parseInt(arr[3]), arr[4],Integer.parseInt(arr[5]) );
+
+    }
     private void printMenuOption() {
         System.out.println("Here can you search for a specific item/items you want to see by search for id, name, category or trademark!");
         System.out.println("Write what method you want to search with then write what you want to search for ");

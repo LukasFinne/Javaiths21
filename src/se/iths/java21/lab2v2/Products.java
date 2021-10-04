@@ -1,87 +1,136 @@
 package se.iths.java21.lab2v2;
 
-import java.util.Objects;
-
-public class Products {
-    private String name;
-    private int price;
-    private Categories categories;
+import java.util.*;
+import java.util.stream.Stream;
 
 
+public class Products implements Command {
+    Scanner sc = new Scanner(System.in);
+    private List<ProductsInfo> productsList;
+    boolean alreadyExecuted = false;
 
-    private int eanCode;
-    private String tradeMark;
+    Cart c = new Cart();
 
-    public Products(String name, int price, Categories categories, int eanCode, String tradeMark) {
-        this.name = name;
-        this.price = price;
-        this.categories = categories;
-        this.eanCode = eanCode;
-        this.tradeMark = tradeMark;
+    public Products() {
+
+        productsList = new ArrayList<>();
+        productsFromFile();
     }
 
-    public Categories getCategories() {
-        return categories;
+    public List<ProductsInfo> getAllProducts() {
+        return Collections.unmodifiableList(productsList);
     }
 
-    public void setCategories(Categories categories) {
-        this.categories = categories;
+    public void findProductById(long productsId) {
+        productsList.stream()
+                .filter(ProductsInfo -> ProductsInfo.eanCode() == productsId)
+                .map(productsInfo -> new NameAndPrice(productsInfo.name(), productsInfo.price()))
+                .findFirst().ifPresent(System.out::println);
     }
 
-    public String getName() {
-        return name;
+    public List<ProductsInfo> findProductByCategory(String category) {
+        return productsList.stream()
+                .filter(ProductsInfo -> ProductsInfo.categories().equals(Categories.valueOf(category)))
+                .toList();
+
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void addProducts(ProductsInfo productsInfo) {
+        productsList.add(productsInfo);
     }
 
-    public int getPrice() {
-        return price;
+    private void productsFromFile() {
+        if (!alreadyExecuted) {
+            addProducts(new ProductsInfo("nötfärs", 35, Categories.MEAT, 1001, "Ica", 2));
+            addProducts(new ProductsInfo("blandfärs", 30, Categories.MEAT, 1002, "Ica", 0));
+            addProducts(new ProductsInfo("kyckling", 25, Categories.MEAT, 1003, "Ica", 4));
+            addProducts(new ProductsInfo("vitlök", 20, Categories.VEGETABLES, 2001, "Coop", 1));
+            addProducts(new ProductsInfo("senap", 40, Categories.DRYGOODS, 3001, "Willys", 6));
+            addProducts(new ProductsInfo("peppar", 50, Categories.DRYGOODS, 3002, "Willys", 10));
+            alreadyExecuted = true;
+        }
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    private void printMenuOption() {
+        System.out.println("Here can you search for a specific item/items you want to see by search for id, name, category or trademark!");
+        System.out.println("Write what method you want to search with then write what you want to search for ");
+
     }
 
-    public int getEanCode() {
-        return eanCode;
+    private void searchMethod(Scanner sc) {
+        switch (sc.next().toLowerCase()) {
+            case "id" -> {
+                System.out.println("Write the Id you want to find!");
+                findProductById(getId(sc));
+
+                System.out.println("Write the name of the item you want to add! or write 0 if you want to go back ");
+                String nameOfProduct = sc.next().toLowerCase();
+                stockCheck(nameOfProduct);
+
+            }
+            case "category" -> {
+                System.out.println("Write the category you want to see");
+
+                String category = sc.next().toUpperCase();
+                findProductByCategory(category).forEach(System.out::println);
+
+                System.out.println("Write the name of the item you want to add! or write 0 if you want to go back ");
+                String nameOfProduct = sc.next().toLowerCase();
+                stockCheck(nameOfProduct);
+            }
+            case "name" -> {
+                System.out.println("Write the name you want to find!");
+            }
+            case "trademark" -> {
+                System.out.println("Write the trademark you want to find!");
+            }
+            default -> {
+                System.out.println("Please try again");
+                execute();
+            }
+        }
     }
 
-    public void setEanCode(int eanCode) {
-        this.eanCode = eanCode;
+    private long getId(Scanner sc) {
+        long id = sc.nextLong();
+        return id;
     }
 
-    public String getTradeMark() {
-        return tradeMark;
+    private void stockCheck(String nameOfProduct) {
+        if(inStockOrNot(nameOfProduct))
+            System.out.println("Not in stock");
+       else{
+            decreaseStock(nameOfProduct);
+            c.addToCart(productsNameAndPrice(nameOfProduct));
+        }
     }
 
-    public void setTradeMark(String tradeMark) {
-        this.tradeMark = tradeMark;
+    private Stream<ProductsInfo> filterNameStream(String nameOfProduct) {
+        return productsList.stream()
+                .filter(ProductsInfo -> ProductsInfo.name().equals(nameOfProduct));
     }
+
+    private void decreaseStock(String nameOfProduct) {
+        filterNameStream(nameOfProduct)
+                .forEach(p -> p.setStock(p.stock() - 1));
+
+    }
+
+    private boolean inStockOrNot(String nameOfProduct){
+        return filterNameStream(nameOfProduct)
+                .anyMatch(productsInfo -> productsInfo.stock() == 0);
+    }
+
+    private List<NameAndPrice> productsNameAndPrice(String nameOfProduct) {
+        return filterNameStream(nameOfProduct)
+                .map(productsInfo -> new NameAndPrice(productsInfo.name(), productsInfo.price()))
+                .toList();
+    }
+
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Products products = (Products) o;
-        return price == products.price && eanCode == products.eanCode && Objects.equals(name, products.name) && categories == products.categories && Objects.equals(tradeMark, products.tradeMark);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, price, categories, eanCode, tradeMark);
-    }
-
-    @Override
-    public String toString() {
-        return "Products{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                ", categories=" + categories +
-                ", eanCode=" + eanCode +
-                ", tradeMark='" + tradeMark + '\'' +
-                '}';
+    public void execute() {
+        printMenuOption();
+        searchMethod(sc);
     }
 }
-

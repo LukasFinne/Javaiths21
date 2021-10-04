@@ -1,6 +1,7 @@
 package se.iths.java21.files;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
 import java.nio.file.Path;
@@ -17,9 +18,14 @@ public class FileDemo {
         System.out.println(Files.exists(path));
         System.out.println(path.toAbsolutePath());
 
+       // byte [] bytes = ByteBuffer.allocate(4).putInt(123456789).array(); Om man skrev tal med writeString metoden så tar det 9 byte men med detta så tar det bara 4 byte
+        //Path binary = Files.createTempFile("some", ".bin");
+       // Files.write(binary, bytes);
+       // System.out.println("tempBinaryFile = " + binary);
 
-        List<String> strings = List.of("First Line", "Second", "Third");
-        Files.write(path, strings, StandardOpenOption.APPEND, StandardOpenOption.CREATE);
+
+        //List<String> strings = List.of("First Line", "Second", "Third");
+       // Files.write(path, strings, StandardOpenOption.APPEND, StandardOpenOption.CREATE);
 
         System.out.println(Files.exists(path));
 

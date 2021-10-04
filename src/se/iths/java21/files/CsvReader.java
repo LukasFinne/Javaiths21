@@ -5,7 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.regex.Pattern;
-import java.util.spi.LocaleServiceProvider;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,7 +29,7 @@ public class CsvReader {
 
     private static Cake createCake(String line){
         String[] arr = pattern.split(line);
-        return new Cake(Integer.parseInt(arr[0]),arr[1],Integer.parseInt(arr[2]));
+        return new Cake(Integer.parseInt(arr[0]),arr[1].strip(),Integer.parseInt(arr[2]));
 
     }
 

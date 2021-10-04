@@ -8,7 +8,7 @@ public class Cart implements Command{
     private static int sum = 0;
     private static List<NameAndPrice> productListCopy;
     public static Map<List<NameAndPrice>, Integer> productMap = new HashMap<>();
-    public static List<List<NameAndPrice>> cart = new ArrayList<>();
+
 
 
     public void showCart(){
@@ -22,13 +22,13 @@ public class Cart implements Command{
     public void addToCart(List<NameAndPrice> list){
         productListCopy = new ArrayList<>(list);
 
-        System.out.println("before if : " + productMap.containsKey(productListCopy));
+        //Gör till en metod
         if(productMap.containsKey(productListCopy)){
             productMap.put(productListCopy, productMap.get(productListCopy) + 1);
         }
-        else{
+        else
             productMap.put(productListCopy,amountInCart);
-        }
+
         sum += productPrice();
 
 
@@ -39,10 +39,6 @@ public class Cart implements Command{
         return productListCopy.get(0).price();
     }
 
-    private String productName() {
-        return productListCopy.get(0).productName();
-    }
-
     private void realItemCheck() {
         if(productListCopy.isEmpty()){
             System.out.println("This is item does not exist, please try again");
@@ -50,11 +46,6 @@ public class Cart implements Command{
             System.out.println("Added to cart");
     }
 
-    private List<NameAndPrice> convertToList(List<List<NameAndPrice>> list){
-        return cart.stream()
-                .flatMap(List::stream)
-                .toList();
-    }
 
     @Override
     public void execute() {

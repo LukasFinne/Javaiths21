@@ -15,7 +15,6 @@ public class Products implements Command {
     private static Pattern pattern = Pattern.compile(",");
     String homePath = System.getProperty("user.home");
     Path csvPath = Path.of(homePath, "ProductInfo.csv");
-    boolean alreadyExecuted = false;
 
     Cart c = new Cart();
 
@@ -29,12 +28,20 @@ public class Products implements Command {
         return Collections.unmodifiableList(productsList);
     }
 
-    public void findProductById(long productsId) {
-        productsList.stream()
+    public Optional<ProductsInfo> findProductById(long productsId) {
+       return productsList.stream()
+                .filter(ProductsInfo -> ProductsInfo.eanCode() == productsId)
+                .findFirst();
+    }
+
+    /*
+    public Optional<NameAndPrice> findProductById(long productsId) {
+       return productsList.stream()
                 .filter(ProductsInfo -> ProductsInfo.eanCode() == productsId)
                 .map(productsInfo -> new NameAndPrice(productsInfo.name(), productsInfo.price()))
-                .findFirst().ifPresent(System.out::println);
+                .findFirst();
     }
+     */
 
     public List<ProductsInfo> findProductByCategory(String category) {
         return productsList.stream()
@@ -69,22 +76,14 @@ public class Products implements Command {
         switch (sc.next().toLowerCase()) {
             case "id" -> {
                 System.out.println("Write the Id you want to find!");
-                findProductById(getId(sc));
-
-                System.out.println("Write the name of the item you want to add! or write 0 if you want to go back ");
-                String nameOfProduct = sc.next().toLowerCase();
-                stockCheck(nameOfProduct);
+                findProductById(id(sc)).ifPresent(System.out::println);
+                SearchedItem(sc);
 
             }
             case "category" -> {
                 System.out.println("Write the category you want to see");
-
-                String category = sc.next().toUpperCase();
-                findProductByCategory(category).forEach(System.out::println);
-
-                System.out.println("Write the name of the item you want to add! or write 0 if you want to go back ");
-                String nameOfProduct = sc.next().toLowerCase();
-                stockCheck(nameOfProduct);
+                findProductByCategory(category(sc)).forEach(System.out::println);
+                SearchedItem(sc);
             }
             case "name" -> {
                 System.out.println("Write the name you want to find!");
@@ -99,12 +98,21 @@ public class Products implements Command {
         }
     }
 
-    private long getId(Scanner sc) {
-        long id = sc.nextLong();
-        return id;
+    private String category(Scanner sc) {
+        return sc.next().toUpperCase();
     }
 
-    private void stockCheck(String nameOfProduct) {
+    private void SearchedItem(Scanner sc) {
+        System.out.println("Write the name of the item you want to add! or write 0 if you want to go back ");
+        String nameOfProduct = sc.next().toLowerCase();
+        stockCheckAndAddItemToCart(nameOfProduct);
+    }
+
+    private long id(Scanner sc) {
+        return sc.nextLong();
+    }
+
+    private void stockCheckAndAddItemToCart(String nameOfProduct) {
         if(inStockOrNot(nameOfProduct))
             System.out.println("Not in stock");
        else{

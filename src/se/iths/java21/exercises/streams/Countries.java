@@ -101,10 +101,6 @@ public class Countries {//flat map
                 .limit(3)
                 .forEach(System.out::println);
     }
-
-
-
-
         private static List<Country> getCountries() {
         return List.of(
                 new Country("Sverige", "Stockholm", 10.07, 450295),

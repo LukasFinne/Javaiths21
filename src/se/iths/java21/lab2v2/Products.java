@@ -38,15 +38,10 @@ public class Products implements Command {
 
     public List<ProductsInfo> findProductByCategory(String category) {
         return productsList.stream()
-                .filter(ProductsInfo -> ProductsInfo.categories().equals(Categories.valueOf(category)))
+                .filter(ProductsInfo -> ProductsInfo.categories().equals(Category.valueOf(category)))
                 .toList();
 
     }
-
-    public void addProducts(ProductsInfo productsInfo) {
-        productsList.add(productsInfo);
-    }
-
 
     private void productsFromFile() {
         try(Stream<String> lines  = Files.lines(csvPath)){
@@ -58,19 +53,10 @@ public class Products implements Command {
         }
 
     }
-    /* if (!alreadyExecuted) {
-          addProducts(new ProductsInfo("nötfärs", 35, Categories.MEAT, 1001, "Ica", 2));
-          addProducts(new ProductsInfo("blandfärs", 30, Categories.MEAT, 1002, "Ica", 0));
-          addProducts(new ProductsInfo("kyckling", 25, Categories.MEAT, 1003, "Ica", 4));
-          addProducts(new ProductsInfo("vitlök", 20, Categories.VEGETABLES, 2001, "Coop", 1));
-          addProducts(new ProductsInfo("senap", 40, Categories.DRYGOODS, 3001, "Willys", 6));
-          addProducts(new ProductsInfo("peppar", 50, Categories.DRYGOODS, 3002, "Willys", 10));
-          alreadyExecuted = true;
-      } */
 
     private static ProductsInfo createProducts(String line){
         String[] arr = pattern.split(line);
-        return new ProductsInfo(arr[0],Integer.parseInt(arr[1]),Categories.valueOf(arr[2]),Integer.parseInt(arr[3]), arr[4],Integer.parseInt(arr[5]) );
+        return new ProductsInfo(arr[0],Integer.parseInt(arr[1]), Category.valueOf(arr[2]),Integer.parseInt(arr[3]), arr[4],Integer.parseInt(arr[5]) );
 
     }
     private void printMenuOption() {

@@ -5,15 +5,15 @@ import java.util.Objects;
 public final class ProductsInfo {
     private final String name;
     private final int price;
-    private final Categories categories;
+    private final Category category;
     private final int eanCode;
     private final String tradeMark;
     private int stock;
 
-    public ProductsInfo(String name, int price, Categories categories, int eanCode, String tradeMark, int Stock) {
+    public ProductsInfo(String name, int price, Category category, int eanCode, String tradeMark, int Stock) {
         this.name = name;
         this.price = price;
-        this.categories = categories;
+        this.category = category;
         this.eanCode = eanCode;
         this.tradeMark = tradeMark;
         this.stock = Stock;
@@ -27,8 +27,8 @@ public final class ProductsInfo {
         return price;
     }
 
-    public Categories categories() {
-        return categories;
+    public Category categories() {
+        return category;
     }
 
     public int eanCode() {
@@ -53,7 +53,7 @@ public final class ProductsInfo {
         var that = (ProductsInfo) obj;
         return Objects.equals(this.name, that.name) &&
                 this.price == that.price &&
-                Objects.equals(this.categories, that.categories) &&
+                Objects.equals(this.category, that.category) &&
                 this.eanCode == that.eanCode &&
                 Objects.equals(this.tradeMark, that.tradeMark) &&
                 this.stock == that.stock;
@@ -61,7 +61,7 @@ public final class ProductsInfo {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, price, categories, eanCode, tradeMark, stock);
+        return Objects.hash(name, price, category, eanCode, tradeMark, stock);
     }
 
     @Override
@@ -69,7 +69,7 @@ public final class ProductsInfo {
         return "ProductsInfo[" +
                 "name=" + name + ", " +
                 "price=" + price + ", " +
-                "categories=" + categories + ", " +
+                "categories=" + category + ", " +
                 "eanCode=" + eanCode + ", " +
                 "tradeMark=" + tradeMark + ", " +
                 "Stock=" + stock + ']';

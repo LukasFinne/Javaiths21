@@ -43,7 +43,7 @@ public class Menu {
 
     private void categories(){
         System.out.println("These are our Categories! Please search for one of the categories to see the products!");
-        for (Categories c : Categories.values()) {
+        for (Category c : Category.values()) {
             System.out.println(c);
         }
 

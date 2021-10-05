@@ -1,6 +1,6 @@
 package se.iths.java21.lab2v2;
 
-import java.nio.file.Path;
+
 import java.util.*;
 
 
@@ -16,24 +16,22 @@ public class Cart implements Command{
         System.out.println("Products in the cart:");
         productMap.forEach((key, value) -> System.out.println(key + ", " + "x" + value));
         System.out.println("Summa:"+ sum + "Kr");
-
     }
 
 
     public void addToCart(List<NameAndPrice> list){
         productListCopy = new ArrayList<>(list);
+        checkIfProductIsAlreadyInCart();
+        sum += productPrice();
+        realItemCheck();
+    }
 
-        //Gör till en metod
+    private void checkIfProductIsAlreadyInCart() {
         if(productMap.containsKey(productListCopy)){
             productMap.put(productListCopy, productMap.get(productListCopy) + 1);
         }
         else
             productMap.put(productListCopy,amountInCart);
-
-        sum += productPrice();
-
-
-        realItemCheck();
     }
 
     private int productPrice() {

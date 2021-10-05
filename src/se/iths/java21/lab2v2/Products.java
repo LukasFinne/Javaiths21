@@ -34,15 +34,6 @@ public class Products implements Command {
                 .findFirst();
     }
 
-    /*
-    public Optional<NameAndPrice> findProductById(long productsId) {
-       return productsList.stream()
-                .filter(ProductsInfo -> ProductsInfo.eanCode() == productsId)
-                .map(productsInfo -> new NameAndPrice(productsInfo.name(), productsInfo.price()))
-                .findFirst();
-    }
-     */
-
     public List<ProductsInfo> findProductByCategory(String category) {
         return productsList.stream()
                 .filter(ProductsInfo -> ProductsInfo.categories().equals(Category.valueOf(category)))
@@ -60,12 +51,13 @@ public class Products implements Command {
         }
 
     }
-
     private static ProductsInfo createProducts(String line){
         String[] arr = pattern.split(line);
         return new ProductsInfo(arr[0],Integer.parseInt(arr[1]), Category.valueOf(arr[2]),Integer.parseInt(arr[3]), arr[4],Integer.parseInt(arr[5]) );
 
     }
+
+
     private void printMenuOption() {
         System.out.println("Here can you search for a specific item/items you want to see by search for id, name, category or trademark!");
         System.out.println("Write what method you want to search with then write what you want to search for ");
@@ -101,23 +93,23 @@ public class Products implements Command {
     private String category(Scanner sc) {
         return sc.next().toUpperCase();
     }
-
-    private void SearchedItem(Scanner sc) {
-        System.out.println("Write the name of the item you want to add! or write 0 if you want to go back ");
-        String nameOfProduct = sc.next().toLowerCase();
-        stockCheckAndAddItemToCart(nameOfProduct);
-    }
-
     private long id(Scanner sc) {
         return sc.nextLong();
     }
 
-    private void stockCheckAndAddItemToCart(String nameOfProduct) {
+
+    private void SearchedItem(Scanner sc) {
+        System.out.println("Write the name of the item you want to add! or write 0 if you want to go back ");
+        String nameOfProduct = sc.next().toLowerCase();
+        checkStockAndAddItemToCart(nameOfProduct);
+    }
+
+    private void checkStockAndAddItemToCart(String nameOfProduct) {
         if(inStockOrNot(nameOfProduct))
             System.out.println("Not in stock");
        else{
             decreaseStock(nameOfProduct);
-            c.addToCart(productsNameAndPrice(nameOfProduct));
+            c.addToCart(mapToNameAndPrice(nameOfProduct));
         }
     }
 
@@ -137,7 +129,7 @@ public class Products implements Command {
                 .anyMatch(productsInfo -> productsInfo.stock() == 0);
     }
 
-    private List<NameAndPrice> productsNameAndPrice(String nameOfProduct) {
+    private List<NameAndPrice> mapToNameAndPrice(String nameOfProduct) {
         return filterNameStream(nameOfProduct)
                 .map(productsInfo -> new NameAndPrice(productsInfo.name(), productsInfo.price()))
                 .toList();

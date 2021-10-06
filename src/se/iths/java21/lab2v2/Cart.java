@@ -1,6 +1,11 @@
 package se.iths.java21.lab2v2;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 
@@ -12,12 +17,33 @@ public class Cart implements Command{
 
 
 
+    public void saveCart(){
+        String homeFolder = System.getProperty("user.home");
+        Path path = Path.of(homeFolder, "ProductsInfo.json");
+        Files.writeString(path, json);
+    }
+
+    private  String toJson(List<ProductsInfo> cakes){
+        ObjectMapper mapper = new ObjectMapper();
+
+        String json = "";
+        try {
+            json = mapper.writeValueAsString(cakes);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return json;
+    }
+
+
+
+
     public void showCart(){
         System.out.println("Products in the cart:");
         productMap.forEach((key, value) -> System.out.println(key + ", " + "x" + value));
         System.out.println("Summa:"+ sum + "Kr");
     }
-
 
     public void addToCart(List<NameAndPrice> list){
         productListCopy = new ArrayList<>(list);

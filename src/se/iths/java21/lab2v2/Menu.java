@@ -22,6 +22,7 @@ public class Menu {
 
     private void shutdown() {
         p.saveToFile();
+        System.out.println("Saved changes to the Store!");
         System.exit(0);
     }
 

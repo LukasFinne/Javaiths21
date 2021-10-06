@@ -26,12 +26,10 @@ public class Products implements Command {
     public Products() {
         productsList = new ArrayList<>();
         productsList = fromJson();
-
-
     }
 
-    public String saveToFile() {
-        System.out.println("1." + productsList);
+    public void saveToFile() {
+
         String json = toJson(productsList);
         try {
             Files.delete(path);
@@ -40,8 +38,6 @@ public class Products implements Command {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return json;
     }
 
     private String toJson(List<ProductsInfo> product) {
@@ -61,7 +57,7 @@ public class Products implements Command {
         ObjectMapper mapper = new ObjectMapper();
         try {
             return mapper.readValue(Paths.get(String.valueOf(path)).toFile(), new TypeReference<>() {
-            });//TypeRefernce är för att type erasure
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }

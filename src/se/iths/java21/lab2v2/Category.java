@@ -9,9 +9,9 @@ public enum Category {
     @JsonProperty("MEAT")
     MEAT("Meat"),
     @JsonProperty("VEGETABLES")
-    VEGETABLES("be"),
+    VEGETABLES("Vegetables"),
     @JsonProperty("DRYGOODS")
-    DRYGOODS("be2"),;
+    DRYGOODS("Drygoods"),;
 
     private String name;
 

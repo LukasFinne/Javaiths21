@@ -1,11 +1,14 @@
 package se.iths.java21.lab2v2;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -13,16 +16,51 @@ public class Products implements Command {
     Scanner sc = new Scanner(System.in);
     private List<ProductsInfo> productsList;
     private static Pattern pattern = Pattern.compile(",");
-    String homePath = System.getProperty("user.home");
-    Path csvPath = Path.of(homePath, "ProductInfo.csv");
-
+    String homeFolder = System.getProperty("user.home");
+    Path path = Path.of(homeFolder, "ProductsInfo.json");
+    ObjectMapper objectMapper = new ObjectMapper();
     Cart c = new Cart();
 
     public Products() {
-
         productsList = new ArrayList<>();
-        productsFromFile();
+        String json = saveToFile();
+        productsList = fromJson(json);
+
     }
+
+    public String saveToFile() {
+        addProducts();
+        String json = toJson(productsList);
+        try {
+            Files.writeString(path, json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
+    private String toJson(List<ProductsInfo> product){
+        ObjectMapper mapper = new ObjectMapper();
+
+        String json = "";
+        try {
+            json = mapper.writeValueAsString(product);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return json;
+    }
+    private List<ProductsInfo> fromJson(String jsonData){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.readValue(jsonData, new TypeReference<>(){});//TypeRefernce är för att type erasure
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return List.of();
+    }
+
 
     public List<ProductsInfo> getAllProducts() {
         return Collections.unmodifiableList(productsList);
@@ -30,17 +68,31 @@ public class Products implements Command {
 
     public Optional<ProductsInfo> findProductById(long productsId) {
        return productsList.stream()
-                .filter(ProductsInfo -> ProductsInfo.eanCode() == productsId)
+                .filter(ProductsInfo -> ProductsInfo.getEanCode() == productsId)
                 .findFirst();
     }
 
     public List<ProductsInfo> findProductByCategory(String category) {
         return productsList.stream()
-                .filter(ProductsInfo -> ProductsInfo.categories().equals(Category.valueOf(category)))
+                .filter(ProductsInfo -> ProductsInfo.getCategory().equals(Category.valueOf(category)))
                 .toList();
 
     }
+    public void addProducts(ProductsInfo productsInfo) {
+        productsList.add(productsInfo);
+    }
 
+    private void addProducts() {
+            addProducts(new ProductsInfo("nötfärs", 35,Category.MEAT, 1001, "Ica", 1));
+            addProducts(new ProductsInfo("nötfärs", 35,Category.MEAT, 1001, "Ica", 1));
+            addProducts(new ProductsInfo("blandfärs", 30,Category.MEAT, 1002, "Ica", 1));
+            addProducts(new ProductsInfo("kyckling", 25,Category.MEAT, 1003, "Ica", 1));
+            addProducts(new ProductsInfo("vitlök", 20,Category.VEGETABLES, 2001, "Coop", 1));
+            addProducts(new ProductsInfo("senap", 40,Category.DRYGOODS, 3001, "Willys", 1));
+            addProducts(new ProductsInfo("peppar", 50,Category.DRYGOODS, 3002, "Willys", 1));
+    }
+
+    /*
     private void productsFromFile() {
         try(Stream<String> lines  = Files.lines(csvPath)){
             productsList = lines.skip(1)
@@ -51,6 +103,8 @@ public class Products implements Command {
         }
 
     }
+     */
+
     private static ProductsInfo createProducts(String line){
         String[] arr = pattern.split(line);
         return new ProductsInfo(arr[0],Integer.parseInt(arr[1]), Category.valueOf(arr[2]),Integer.parseInt(arr[3]), arr[4],Integer.parseInt(arr[5]) );
@@ -115,23 +169,23 @@ public class Products implements Command {
 
     private Stream<ProductsInfo> filterNameStream(String nameOfProduct) {
         return productsList.stream()
-                .filter(ProductsInfo -> ProductsInfo.name().equals(nameOfProduct));
+                .filter(ProductsInfo -> ProductsInfo.getName().equals(nameOfProduct));
     }
 
     private void decreaseStock(String nameOfProduct) {
         filterNameStream(nameOfProduct)
-                .forEach(p -> p.setStock(p.stock() - 1));
+                .forEach(p -> p.setStock(p.getStock() - 1));
 
     }
 
     private boolean inStockOrNot(String nameOfProduct){
         return filterNameStream(nameOfProduct)
-                .anyMatch(productsInfo -> productsInfo.stock() == 0);
+                .anyMatch(productsInfo -> productsInfo.getStock() == 0);
     }
 
     private List<NameAndPrice> mapToNameAndPrice(String nameOfProduct) {
         return filterNameStream(nameOfProduct)
-                .map(productsInfo -> new NameAndPrice(productsInfo.name(), productsInfo.price()))
+                .map(productsInfo -> new NameAndPrice(productsInfo.getName(), productsInfo.getPrice()))
                 .toList();
     }
 

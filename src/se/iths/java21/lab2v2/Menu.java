@@ -21,7 +21,7 @@ public class Menu {
     }
 
     private void shutdown() {
-
+        p.saveToFile();
         System.exit(0);
     }
 

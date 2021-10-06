@@ -16,29 +16,6 @@ public class Cart implements Command{
     public static Map<List<NameAndPrice>, Integer> productMap = new HashMap<>();
 
 
-
-    public void saveCart(){
-        String homeFolder = System.getProperty("user.home");
-        Path path = Path.of(homeFolder, "ProductsInfo.json");
-        Files.writeString(path, json);
-    }
-
-    private  String toJson(List<ProductsInfo> cakes){
-        ObjectMapper mapper = new ObjectMapper();
-
-        String json = "";
-        try {
-            json = mapper.writeValueAsString(cakes);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        return json;
-    }
-
-
-
-
     public void showCart(){
         System.out.println("Products in the cart:");
         productMap.forEach((key, value) -> System.out.println(key + ", " + "x" + value));

@@ -3,11 +3,11 @@ package se.iths.java21.lab2v2;
 import java.util.Objects;
 
 public final class ProductsInfo {
-    private  String name;
-    private  int price;
-    private  Category category;
-    private  int eanCode;
-    private  String tradeMark;
+    private String name;
+    private int price;
+    private Category category;
+    private int eanCode;
+    private String tradeMark;
     private int stock;
 
     public ProductsInfo(String name, int price, Category category, int eanCode, String tradeMark, int Stock) {
@@ -19,7 +19,7 @@ public final class ProductsInfo {
         this.stock = Stock;
     }
 
-    public ProductsInfo(){
+    public ProductsInfo() {
 
     }
 

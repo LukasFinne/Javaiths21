@@ -11,7 +11,8 @@ public enum Category {
     @JsonProperty("VEGETABLES")
     VEGETABLES("Vegetables"),
     @JsonProperty("DRYGOODS")
-    DRYGOODS("Drygoods"),;
+    DRYGOODS("Drygoods"),
+    ;
 
     private String name;
 
@@ -20,7 +21,7 @@ public enum Category {
         return name;
     }
 
-     Category(String name){
+    Category(String name) {
         this.name = name;
     }
 }

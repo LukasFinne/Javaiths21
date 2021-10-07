@@ -20,7 +20,6 @@ public class Cart implements Command {
     }
 
 
-
     public void addToCart(List<NameAndPrice> list) {
         productListCopy = new ArrayList<>(list);
         checkIfProductIsAlreadyInCart();
@@ -35,7 +34,7 @@ public class Cart implements Command {
         } else
             productMap.put(productListCopy, amountInCart);
 
-        numberOfProducts +=1;
+        numberOfProducts += 1;
     }
 
     private double applyDiscount() {
@@ -84,7 +83,6 @@ public class Cart implements Command {
         return new DiscountRule<Double>(condition, process);
 
     }
-
 
 
     private int productPrice() {

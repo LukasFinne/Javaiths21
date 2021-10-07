@@ -89,11 +89,11 @@ public class Products implements Command {
     }
 
     public List<ProductsInfo> findProductByCategory(String category) {
-        try{
+        try {
             return productsList.stream()
                     .filter(ProductsInfo -> ProductsInfo.getCategory().equals(Category.valueOf(category)))
                     .toList();
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return List.of();
         }
 

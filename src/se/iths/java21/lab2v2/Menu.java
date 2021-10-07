@@ -36,7 +36,7 @@ public class Menu {
         } while (choice != 0);
     }
 
-    private void messageOfDay(){
+    private void messageOfDay() {
         System.out.println("Veckans erbjuden");
         System.out.println("Om du köper 1 produker så får du 1%, 2 produker 5% och över 5 produkter 10% av totala summan av din order!");
     }
@@ -49,7 +49,7 @@ public class Menu {
         return sc.nextInt();
     }
 
-    private void categories(){
+    private void categories() {
         System.out.println("These are our Categories! Please search for one of the categories to see the products!");
         for (Category c : Category.values()) {
             System.out.println(c);

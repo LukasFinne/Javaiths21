@@ -69,16 +69,33 @@ public class Products implements Command {
         return Collections.unmodifiableList(productsList);
     }
 
-    public Optional<ProductsInfo> findProductById(long productsId) {
+    public List<ProductsInfo> findProductById(long productsId) {
         return productsList.stream()
                 .filter(ProductsInfo -> ProductsInfo.getEanCode() == productsId)
-                .findFirst();
+                .toList();
+    }
+
+    public List<ProductsInfo> findProductByName(String name) {
+        return productsList.stream()
+                .filter(ProductsInfo -> ProductsInfo.getName().equals(name))
+                .toList();
+    }
+
+    public List<ProductsInfo> findProductByTradeMark(String tradeMark) {
+
+        return productsList.stream()
+                .filter(ProductsInfo -> ProductsInfo.getTradeMark().equals(tradeMark))
+                .toList();
     }
 
     public List<ProductsInfo> findProductByCategory(String category) {
-        return productsList.stream()
-                .filter(ProductsInfo -> ProductsInfo.getCategory().equals(Category.valueOf(category)))
-                .toList();
+        try{
+            return productsList.stream()
+                    .filter(ProductsInfo -> ProductsInfo.getCategory().equals(Category.valueOf(category)))
+                    .toList();
+        }catch (IllegalArgumentException e){
+            return List.of();
+        }
 
     }
 
@@ -119,33 +136,45 @@ public class Products implements Command {
     private void printMenuOption() {
         System.out.println("Here can you search for a specific item/items you want to see by search for id, name, category or trademark!");
         System.out.println("Write what method you want to search with then write what you want to search for ");
-
     }
 
     private void searchMethod(Scanner sc) {
         switch (sc.next().toLowerCase()) {
             case "id" -> {
                 System.out.println("Write the Id you want to find!");
-                findProductById(id(sc)).ifPresent(System.out::println);
-                SearchedItem(sc);
-
+                check(findProductById(id(sc)));
             }
             case "category" -> {
                 System.out.println("Write the category you want to see");
-                findProductByCategory(category(sc)).forEach(System.out::println);
-                SearchedItem(sc);
+                check(findProductByCategory(category(sc)));
             }
             case "name" -> {
                 System.out.println("Write the name you want to find!");
+                check(findProductByName(getString(sc)));
             }
             case "trademark" -> {
                 System.out.println("Write the trademark you want to find!");
+                check(findProductByTradeMark(getString(sc)));
             }
             default -> {
                 System.out.println("Please try again");
                 execute();
             }
         }
+
+    }
+
+    private void check(List<ProductsInfo> list) {
+        if (list.isEmpty()) {
+            System.out.println("Hittade inget!, försök igen tack");
+            execute();
+        } else
+            list.forEach(System.out::println);
+        SearchedItem(sc);
+    }
+
+    private String getString(Scanner sc) {
+        return sc.next();
     }
 
     private String category(Scanner sc) {

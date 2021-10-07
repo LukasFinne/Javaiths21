@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Menu {
     private static final Scanner sc = new Scanner(System.in);
-    private static final Command[] commands = new Command[5];
+    private static final Command[] commands = new Command[6];
     Products p = new Products();
 
     public Menu() {
@@ -12,6 +12,7 @@ public class Menu {
         commands[2] = this::categories;
         commands[3] = () -> p.getAllProducts().forEach(System.out::println);
         commands[4] = new Cart();
+        commands[5] = this::messageOfDay;
         commands[0] = this::shutdown;
     }
 
@@ -35,6 +36,11 @@ public class Menu {
         } while (choice != 0);
     }
 
+    private void messageOfDay(){
+        System.out.println("Veckans erbjuden");
+        System.out.println("Om du köper 1 produker så får du 1%, 2 produker 5% och över 5 produkter 10% av totala summan av din order!");
+    }
+
     private void executeChoice(int choice) {
         commands[choice].execute();
     }
@@ -56,6 +62,7 @@ public class Menu {
         System.out.println("2. Categories");
         System.out.println("3. Show all products");
         System.out.println("4. Cart");
+        System.out.println("5. Message of the day!");
         System.out.println("0. Exit program");
     }
 

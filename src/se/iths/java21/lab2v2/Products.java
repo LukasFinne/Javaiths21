@@ -9,19 +9,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 
 public class Products implements Command {
     Scanner sc = new Scanner(System.in);
     private static List<ProductsInfo> productsList;
-    private static Pattern pattern = Pattern.compile(",");
-    boolean test = true;
     String homeFolder = System.getProperty("user.home");
     Path path = Path.of(homeFolder, "ProductsInfo.json");
-    ObjectMapper objectMapper = new ObjectMapper();
     Cart c = new Cart();
+    ProductsInfo pros = new ProductsInfo();
 
     public Products() {
         productsList = new ArrayList<>();
@@ -38,6 +35,10 @@ public class Products implements Command {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println("Tack för ditt köp!");
+        c.showCart();
+        c.clearCart();
+
     }
 
     private String toJson(List<ProductsInfo> product) {
@@ -64,15 +65,13 @@ public class Products implements Command {
         return List.of();
     }
 
-
-    public List<ProductsInfo> getAllProducts() {
-        return Collections.unmodifiableList(productsList);
+    public void getAllProducts() {
+        Console.printAllProducts(productsList);
     }
 
     public List<ProductsInfo> findProductById(long productsId) {
         return productsList.stream()
-                .filter(ProductsInfo -> ProductsInfo.getEanCode() == productsId)
-                .toList();
+                .filter(ProductsInfo -> ProductsInfo.getEanCode() == productsId).toList();
     }
 
     public List<ProductsInfo> findProductByName(String name) {
@@ -99,78 +98,33 @@ public class Products implements Command {
 
     }
 
-    public void addProducts(ProductsInfo productsInfo) {
-        productsList.add(productsInfo);
-    }
-
-   /* private void addProducts() {
-            addProducts(new ProductsInfo("nötfärs", 35,Category.MEAT, 1001, "Ica", 1));
-            addProducts(new ProductsInfo("nötfärs", 35,Category.MEAT, 1001, "Ica", 1));
-            addProducts(new ProductsInfo("blandfärs", 30,Category.MEAT, 1002, "Ica", 1));
-            addProducts(new ProductsInfo("kyckling", 25,Category.MEAT, 1003, "Ica", 1));
-            addProducts(new ProductsInfo("vitlök", 20,Category.VEGETABLES, 2001, "Coop", 1));
-            addProducts(new ProductsInfo("senap", 40,Category.DRYGOODS, 3001, "Willys", 1));
-            addProducts(new ProductsInfo("peppar", 50,Category.DRYGOODS, 3002, "Willys", 1));
-    }*/
-
-    /*
-    private void productsFromFile() {
-        try(Stream<String> lines  = Files.lines(csvPath)){
-            productsList = lines.skip(1)
-                    .map(Products::createProducts)
-                    .collect(Collectors.toList());
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-
-    }
-     */
-
-    private static ProductsInfo createProducts(String line) {
-        String[] arr = pattern.split(line);
-        return new ProductsInfo(arr[0], Integer.parseInt(arr[1]), Category.valueOf(arr[2]), Integer.parseInt(arr[3]), arr[4], Integer.parseInt(arr[5]));
-
-    }
-
-
-    private void printMenuOption() {
-        System.out.println("Here can you search for a specific item/items you want to see by search for id, name, category or trademark!");
-        System.out.println("Write what method you want to search with then write what you want to search for ");
-    }
-
-    private void searchMethod(Scanner sc) {
+    private void searchMethod() {
+        Scanner sc = new Scanner(System.in);
         switch (sc.next().toLowerCase()) {
             case "id" -> {
-                System.out.println("Write the Id you want to find!");
-                check(findProductById(id(sc)));
+                System.out.println("Skriv id du vill se!");
+                Console.printBasicProductInfo(findProductById(id(sc)));
             }
             case "category" -> {
-                System.out.println("Write the category you want to see");
-                check(findProductByCategory(category(sc)));
+                System.out.println("Skriv kategorien du vill se");
+                Console.printBasicProductInfo(findProductByCategory(category(sc)));
             }
             case "name" -> {
-                System.out.println("Write the name you want to find!");
-                check(findProductByName(getString(sc)));
+                System.out.println("Skriv namnet av produkten du vill se");
+                Console.printBasicProductInfo(findProductByName(getString(sc)));
             }
             case "trademark" -> {
-                System.out.println("Write the trademark you want to find!");
-                check(findProductByTradeMark(getString(sc)));
+                System.out.println("Skriv varumärket du vill se");
+                Console.printBasicProductInfo(findProductByTradeMark(getString(sc)));
             }
             default -> {
-                System.out.println("Please try again");
+                System.out.println("Försök igen!");
                 execute();
             }
         }
-
-    }
-
-    private void check(List<ProductsInfo> list) {
-        if (list.isEmpty()) {
-            System.out.println("Hittade inget!, försök igen tack");
-            execute();
-        } else
-            list.forEach(System.out::println);
         SearchedItem(sc);
+
+
     }
 
     private String getString(Scanner sc) {
@@ -185,20 +139,32 @@ public class Products implements Command {
         return sc.nextLong();
     }
 
-
     private void SearchedItem(Scanner sc) {
-        System.out.println("Write the name of the item you want to add! or write 0 if you want to go back ");
+        System.out.println("Skriv namnet av produkten du vill lägga till i kundvagnen!");
         String nameOfProduct = sc.next().toLowerCase();
-        checkStockAndAddItemToCart(nameOfProduct);
+        checkStock(nameOfProduct);
+
+
     }
 
-    private void checkStockAndAddItemToCart(String nameOfProduct) {
+    private void checkStock(String nameOfProduct) {
         if (inStockOrNot(nameOfProduct))
-            System.out.println("Not in stock");
+            System.out.println("Inte i lager");
         else {
-            decreaseStock(nameOfProduct);
-            c.addToCart(mapToNameAndPrice(nameOfProduct));
+            addToCart(nameOfProduct);
         }
+    }
+
+    private void addToCart(String nameOfProduct) {
+        try {
+            decreaseStock(nameOfProduct);
+            Console.printNameAndPrice(mapToNameAndPrice(nameOfProduct));
+            c.addToCart(mapToNameAndPrice(nameOfProduct));
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Hittade inget, försök igen");
+            execute();
+        }
+
     }
 
     private Stream<ProductsInfo> filterNameStream(String nameOfProduct) {
@@ -209,7 +175,6 @@ public class Products implements Command {
     private void decreaseStock(String nameOfProduct) {
         filterNameStream(nameOfProduct)
                 .forEach(p -> p.setStock(p.getStock() - 1));
-
     }
 
     private boolean inStockOrNot(String nameOfProduct) {
@@ -224,9 +189,14 @@ public class Products implements Command {
     }
 
 
+    private void printMenuOption() {
+        System.out.println("Här kan du söka på produkteras id, namn, kategori eller varumärke");
+        System.out.println("Skriv vad du vill söka på! t.ex. id");
+    }
+
     @Override
     public void execute() {
         printMenuOption();
-        searchMethod(sc);
+        searchMethod();
     }
 }

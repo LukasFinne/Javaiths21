@@ -4,15 +4,16 @@ import java.util.Scanner;
 
 public class Menu {
     private static final Scanner sc = new Scanner(System.in);
-    private static final Command[] commands = new Command[6];
+    private static final Command[] commands = new Command[7];
     Products p = new Products();
-
+    Cart c = new Cart();
     public Menu() {
         commands[1] = new Products();
         commands[2] = this::categories;
-        commands[3] = () -> p.getAllProducts().forEach(System.out::println);
+        commands[3] = () -> p.getAllProducts();
         commands[4] = new Cart();
         commands[5] = this::messageOfDay;
+        commands[6] = () -> p.saveToFile();
         commands[0] = this::shutdown;
     }
 
@@ -22,8 +23,6 @@ public class Menu {
     }
 
     private void shutdown() {
-        p.saveToFile();
-        System.out.println("Saved changes to the Store!");
         System.exit(0);
     }
 
@@ -37,8 +36,8 @@ public class Menu {
     }
 
     private void messageOfDay() {
-        System.out.println("Veckans erbjuden");
-        System.out.println("Om du köper 1 produker så får du 1%, 2 produker 5% och över 5 produkter 10% av totala summan av din order!");
+        System.out.println("Veckans erbjudan");
+        System.out.println("Om du köper 1 produker så får du 1% av den totala summan, 2 produker 5% och över 5 produkter 10%!");
     }
 
     private void executeChoice(int choice) {
@@ -58,11 +57,12 @@ public class Menu {
     }
 
     private void printMenuOption() {
-        System.out.println("1. Search");
-        System.out.println("2. Categories");
-        System.out.println("3. Show all products");
-        System.out.println("4. Cart");
-        System.out.println("5. Message of the day!");
+        System.out.println("1. Sök");
+        System.out.println("2. Kategorier");
+        System.out.println("3. Visa alla produkter");
+        System.out.println("4. Visa varuvagnen");
+        System.out.println("5. Dagens meddelande");
+        System.out.println("6. Köp");
         System.out.println("0. Exit program");
     }
 

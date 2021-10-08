@@ -2,6 +2,7 @@ package se.iths.java21.lab2v2;
 
 import java.util.*;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -13,10 +14,13 @@ public class Cart implements Command {
 
 
     public void showCart() {
-        System.out.println("Products in the cart:");
-        productMap.forEach((key, value) -> System.out.println(key + ", " + "x" + value));
-
+        System.out.println("Produkter i kundvagnen:");
+        productMap.forEach((key, value) -> System.out.println("Namn: " + key.stream().map(NameAndPrice::productName).toList() + ", " + key.stream().map(NameAndPrice::price).toList() +"kr, x" + value ));
         System.out.println("Summa:" + applyDiscount() + "Kr");
+    }
+    public void clearCart(){
+        productMap.clear();
+        sum = 0;
     }
 
 
@@ -46,7 +50,6 @@ public class Cart implements Command {
                 .orElse(0.0);
     }
 
-
     Map<DiscountType, DiscountRule<Double>> createRules(double sum, int numberOfProducts) {
         Map<DiscountType, DiscountRule<Double>> rules = new HashMap<>();
         rules.put(DiscountType.TEN_PERCENT, createRuleForTenPercent(sum, numberOfProducts));
@@ -55,7 +58,6 @@ public class Cart implements Command {
 
         return rules;
     }
-
 
     DiscountRule<Double> createRuleForTenPercent(double sum, int numberOfProducts) {
         return createRule(
@@ -91,9 +93,9 @@ public class Cart implements Command {
 
     private void realItemCheck() {
         if (productListCopy.isEmpty()) {
-            System.out.println("This is item does not exist, please try again");
+            System.out.println("\nDenna produkten finns inte, försök igen ");
         } else
-            System.out.println("Added to cart");
+            System.out.println("\n Produkten har lags till i kundvagnen");
     }
 
 

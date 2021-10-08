@@ -7,12 +7,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Category {
     @JsonProperty("MEAT")
-    MEAT("Meat"),
+    MEAT("Kött"),
+    FRUIT("Frukt"),
     @JsonProperty("VEGETABLES")
-    VEGETABLES("Vegetables"),
+    VEGETABLES("Grönsaker"),
     @JsonProperty("DRYGOODS")
-    DRYGOODS("Drygoods"),
-    ;
+    DRYGOODS("Torrvaror");
 
     private String name;
 

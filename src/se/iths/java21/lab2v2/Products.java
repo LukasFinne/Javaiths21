@@ -105,15 +105,15 @@ public class Products implements Command {
                 System.out.println("Skriv id du vill se!");
                 Console.printBasicProductInfo(findProductById(id(sc)));
             }
-            case "category" -> {
+            case "kategori" -> {
                 System.out.println("Skriv kategorien du vill se");
                 Console.printBasicProductInfo(findProductByCategory(category(sc)));
             }
-            case "name" -> {
+            case "namn" -> {
                 System.out.println("Skriv namnet av produkten du vill se");
                 Console.printBasicProductInfo(findProductByName(getString(sc)));
             }
-            case "trademark" -> {
+            case "varumärke" -> {
                 System.out.println("Skriv varumärket du vill se");
                 Console.printBasicProductInfo(findProductByTradeMark(getString(sc)));
             }

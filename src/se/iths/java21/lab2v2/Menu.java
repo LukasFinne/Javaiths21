@@ -11,7 +11,7 @@ public class Menu {
         commands[1] = new Products();
         commands[2] = this::categories;
         commands[3] = () -> p.getAllProducts();
-        commands[4] = new Cart();
+        commands[4] = () -> c.showCart();
         commands[5] = this::messageOfDay;
         commands[6] = () -> p.saveToFile();
         commands[0] = this::shutdown;

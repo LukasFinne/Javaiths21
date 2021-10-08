@@ -11,8 +11,6 @@ public class Cart implements Command {
     private static double sum = 0;
     private static List<NameAndPrice> productListCopy;
     public static Map<List<NameAndPrice>, Integer> productMap = new HashMap<>();
-
-
     public void showCart() {
         System.out.println("Produkter i kundvagnen:");
         productMap.forEach((key, value) -> System.out.println("Namn: " + key.stream().map(NameAndPrice::productName).toList() + ", " + key.stream().map(NameAndPrice::price).toList() +"kr, x" + value ));
@@ -22,7 +20,6 @@ public class Cart implements Command {
         productMap.clear();
         sum = 0;
     }
-
 
     public void addToCart(List<NameAndPrice> list) {
         productListCopy = new ArrayList<>(list);

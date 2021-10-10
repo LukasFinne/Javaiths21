@@ -2,7 +2,7 @@ package se.iths.java21.lab2v2;
 
 import java.util.Objects;
 
-public final class ProductsInfo {
+public final class Product {
     private String name;
     private int price;
     private Category category;
@@ -10,7 +10,7 @@ public final class ProductsInfo {
     private String tradeMark;
     private int stock;
 
-    public ProductsInfo(String name, int price, Category category, int eanCode, String tradeMark, int Stock) {
+    public Product(String name, int price, Category category, int eanCode, String tradeMark, int Stock) {
         this.name = name;
         this.price = price;
         this.category = category;
@@ -19,7 +19,7 @@ public final class ProductsInfo {
         this.stock = Stock;
     }
 
-    public ProductsInfo() {
+    public Product() {
 
     }
 
@@ -55,7 +55,7 @@ public final class ProductsInfo {
     public boolean equals(Object obj) {
         if (obj == this) return true;
         if (obj == null || obj.getClass() != this.getClass()) return false;
-        var that = (ProductsInfo) obj;
+        var that = (Product) obj;
         return Objects.equals(this.name, that.name) &&
                 this.price == that.price &&
                 Objects.equals(this.category, that.category) &&

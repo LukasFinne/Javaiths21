@@ -14,11 +14,11 @@ import java.util.stream.Stream;
 
 public class Products implements Command {
     Scanner sc = new Scanner(System.in);
-    private static List<ProductsInfo> productsList;
+    private static List<Product> productsList;
     String homeFolder = System.getProperty("user.home");
-    Path path = Path.of(homeFolder, "ProductsInfo.json");
+    Path path = Path.of(homeFolder, "ProductsList.json");
     Cart c = new Cart();
-    ProductsInfo pros = new ProductsInfo();
+    Product pros = new Product();
 
     public Products() {
         productsList = new ArrayList<>();
@@ -41,7 +41,7 @@ public class Products implements Command {
 
     }
 
-    private String toJson(List<ProductsInfo> product) {
+    private String toJson(List<Product> product) {
         ObjectMapper mapper = new ObjectMapper();
 
         String json = "";
@@ -54,7 +54,7 @@ public class Products implements Command {
         return json;
     }
 
-    private List<ProductsInfo> fromJson() {
+    private List<Product> fromJson() {
         ObjectMapper mapper = new ObjectMapper();
         try {
             return mapper.readValue(Paths.get(String.valueOf(path)).toFile(), new TypeReference<>() {
@@ -69,28 +69,28 @@ public class Products implements Command {
         Console.printAllProducts(productsList);
     }
 
-    public List<ProductsInfo> findProductById(long productsId) {
+    public List<Product> findProductById(long productsId) {
         return productsList.stream()
-                .filter(ProductsInfo -> ProductsInfo.getEanCode() == productsId).toList();
+                .filter(Product -> Product.getEanCode() == productsId).toList();
     }
 
-    public List<ProductsInfo> findProductByName(String name) {
+    public List<Product> findProductByName(String name) {
         return productsList.stream()
-                .filter(ProductsInfo -> ProductsInfo.getName().equals(name))
+                .filter(Product -> Product.getName().equals(name))
                 .toList();
     }
 
-    public List<ProductsInfo> findProductByTradeMark(String tradeMark) {
+    public List<Product> findProductByTradeMark(String tradeMark) {
 
         return productsList.stream()
-                .filter(ProductsInfo -> ProductsInfo.getTradeMark().equals(tradeMark))
+                .filter(Product -> Product.getTradeMark().equals(tradeMark))
                 .toList();
     }
 
-    public List<ProductsInfo> findProductByCategory(String category) {
+    public List<Product> findProductByCategory(String category) {
         try {
             return productsList.stream()
-                    .filter(ProductsInfo -> ProductsInfo.getCategory().equals(Category.valueOf(category)))
+                    .filter(Product -> Product.getCategory().equals(Category.valueOf(category)))
                     .toList();
         } catch (IllegalArgumentException e) {
             return List.of();
@@ -167,9 +167,9 @@ public class Products implements Command {
 
     }
 
-    private Stream<ProductsInfo> filterNameStream(String nameOfProduct) {
+    private Stream<Product> filterNameStream(String nameOfProduct) {
         return productsList.stream()
-                .filter(ProductsInfo -> ProductsInfo.getName().equals(nameOfProduct));
+                .filter(Product -> Product.getName().equals(nameOfProduct));
     }
 
     private void decreaseStock(String nameOfProduct) {
@@ -179,12 +179,12 @@ public class Products implements Command {
 
     private boolean inStockOrNot(String nameOfProduct) {
         return filterNameStream(nameOfProduct)
-                .anyMatch(productsInfo -> productsInfo.getStock() == 0);
+                .anyMatch(product -> product.getStock() == 0);
     }
 
     private List<NameAndPrice> mapToNameAndPrice(String nameOfProduct) {
         return filterNameStream(nameOfProduct)
-                .map(productsInfo -> new NameAndPrice(productsInfo.getName(), productsInfo.getPrice()))
+                .map(product -> new NameAndPrice(product.getName(), product.getPrice()))
                 .toList();
     }
 

@@ -2,7 +2,6 @@ package se.iths.java21.lab2v2;
 
 import java.util.*;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
@@ -11,12 +10,14 @@ public class Cart implements Command {
     private static double sum = 0;
     private static List<NameAndPrice> productListCopy;
     public static Map<List<NameAndPrice>, Integer> productMap = new HashMap<>();
+
     public void showCart() {
         System.out.println("Produkter i kundvagnen:");
-        productMap.forEach((key, value) -> System.out.println("Namn: " + key.stream().map(NameAndPrice::productName).toList() + ", " + key.stream().map(NameAndPrice::price).toList() +"kr, x" + value ));
+        productMap.forEach((key, value) -> System.out.println("Namn: " + key.stream().map(NameAndPrice::productName).toList() + ", " + key.stream().map(NameAndPrice::price).toList() + "kr, x" + value));
         System.out.println("Summa:" + applyDiscount() + "Kr");
     }
-    public void clearCart(){
+
+    public void clearCart() {
         productMap.clear();
         sum = 0;
     }

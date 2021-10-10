@@ -7,6 +7,7 @@ public class Menu {
     private static final Command[] commands = new Command[7];
     Products p = new Products();
     Cart c = new Cart();
+
     public Menu() {
         commands[1] = new Products();
         commands[2] = this::categories;

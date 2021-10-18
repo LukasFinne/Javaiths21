@@ -1,11 +1,19 @@
 package se.iths.java21.fluent;
 
-public class BuildingBuilder {
+public class BuildingBuilder implements RoomsBuilder, PriceBuilder{
     private int rooms;
     private boolean chimney;
     private float price;
 
-    public BuildingBuilder setRooms(int rooms) {
+    private BuildingBuilder(){
+
+    }
+
+    public static RoomsBuilder getBuilder(){
+        return new BuildingBuilder();
+    }
+
+    public PriceBuilder setRooms(int rooms) {
         this.rooms = rooms;
         return this;
     }
@@ -30,4 +38,13 @@ public class BuildingBuilder {
     public Building createBuilding() {
         return new Building(rooms, chimney, price);
     }
+}
+
+    interface RoomsBuilder{
+        PriceBuilder setRooms(int rooms);
+        BuildingBuilder normalBuilding();
+}
+
+interface PriceBuilder{
+    BuildingBuilder setPrice(float price);
 }
